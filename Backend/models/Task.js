@@ -38,7 +38,7 @@ const taskSchema = new mongoose.Schema(
       default: "Medium",
       required: [true, "Priority is required"],
     },
-    statue: {
+    status: {
       type: String,
       enum: {
         values: ["Pending", "In Progress", "Completed"],
