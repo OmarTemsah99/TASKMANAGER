@@ -264,77 +264,68 @@ const getDashboardData = async (req, res) => {
   try {
     // Task Statistics
     const totalTasks = await Task.countDocuments();
-    const pendingTasks = await Task.countDocuments({ statue: "Pending" });
-    const inProgressTasks = await Task.countDocuments({
-      statue: "In Progress",
-    });
-    const completedTasks = await Task.countDocuments({ statue: "Completed" });
-
-    // Priority Distribution
-    const highPriorityTasks = await Task.countDocuments({ priority: "High" });
-    const mediumPriorityTasks = await Task.countDocuments({
-      priority: "Medium",
-    });
-    const lowPriorityTasks = await Task.countDocuments({ priority: "Low" });
-
-    // Recent Tasks (last 5)
-    const recentTasks = await Task.find()
-      .sort({ createdAt: -1 })
-      .limit(5)
-      .populate("assignedTo", "name email profileImageUrl");
-
-    // Upcoming Deadlines (next 5 tasks)
-    const upcomingDeadlines = await Task.find({
-      dueDate: { $gte: new Date() },
+    const pendingTasks = await Task.countDocuments({ status: "Pending" });
+    const completedTasks = await Task.countDocuments({ status: "Completed" });
+    const overdueTasks = await Task.countDocuments({
       statue: { $ne: "Completed" },
-    })
-      .sort({ dueDate: 1 })
-      .limit(5)
-      .populate("assignedTo", "name email profileImageUrl");
+      dueDate: { $lt: new Date() },
+    });
 
-    // Tasks Per User (for visualization)
-    const tasksPerUser = await Task.aggregate([
-      {
-        $unwind: "$assignedTo",
-      },
+    // Ensure all possible statuses are included
+    const taskStatuses = ["Pending", "In Progress", "Completed"];
+    const taskDistributionRaw = await Task.aggregate([
       {
         $group: {
-          _id: "$assignedTo",
-          taskCount: { $sum: 1 },
-        },
-      },
-      {
-        $lookup: {
-          from: "users",
-          localField: "_id",
-          foreignField: "_id",
-          as: "userInfo",
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          taskCount: 1,
-          userName: { $arrayElemAt: ["$userInfo.name", 0] },
+          _id: "$status",
+          count: { $sum: 1 },
         },
       },
     ]);
 
-    res.json({
-      taskStats: {
-        total: totalTasks,
-        pending: pendingTasks,
-        inProgress: inProgressTasks,
-        completed: completedTasks,
+    const taskDistribution = taskStatuses.reduce((acc, status) => {
+      const formattedKey = status.replace(/\s+/g, ""); // Remove spaces for responce keys
+      acc[formattedKey] =
+        taskDistributionRaw.find((item) => item._id === status)?.count || 0;
+      return acc;
+    }, {});
+
+    taskDistribution["All"] = totalTasks; // Add total count to taskDistribution
+
+    // Ensure all priority levels are included
+    const taskPriorities = ["Low", "Medium", "High"];
+    const taskPriorityLevelsRaw = await Task.aggregate([
+      {
+        $group: {
+          _id: "$priority",
+          count: { $sum: 1 },
+        },
       },
-      priorityDistribution: {
-        high: highPriorityTasks,
-        medium: mediumPriorityTasks,
-        low: lowPriorityTasks,
+    ]);
+
+    const taskPriorityLevels = taskPriorities.reduce((acc, priority) => {
+      acc[priority] =
+        taskPriorityLevelsRaw.find((item) => item._id === priority)?.count || 0;
+      return acc;
+    }, {});
+
+    // Fetch recent 10 tasks
+    const recentTasks = await Task.find()
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .select("title status priority dueDate createdAt");
+
+    res.status(200).json({
+      statistics: {
+        totalTasks,
+        pendingTasks,
+        completedTasks,
+        overdueTasks,
+      },
+      charts: {
+        taskDistribution,
+        taskPriorityLevels,
       },
       recentTasks,
-      upcomingDeadlines,
-      tasksPerUser,
     });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
@@ -346,85 +337,97 @@ const getDashboardData = async (req, res) => {
 // @access  Private
 const getUserDashboardData = async (req, res) => {
   try {
-    // User's Task Statistics
-    const totalTasks = await Task.countDocuments({ assignedTo: req.user._id });
+    const userId = req.user._id;
+
+    // Task Statistics for the specific user
+    const totalTasks = await Task.countDocuments({ assignedTo: userId });
     const pendingTasks = await Task.countDocuments({
-      assignedTo: req.user._id,
-      statue: "Pending",
-    });
-    const inProgressTasks = await Task.countDocuments({
-      assignedTo: req.user._id,
-      statue: "In Progress",
+      assignedTo: userId,
+      status: "Pending",
     });
     const completedTasks = await Task.countDocuments({
-      assignedTo: req.user._id,
-      statue: "Completed",
+      assignedTo: userId,
+      status: "Completed",
+    });
+    const overdueTasks = await Task.countDocuments({
+      assignedTo: userId,
+      status: { $ne: "Completed" },
+      dueDate: { $lt: new Date() },
     });
 
-    // Priority Distribution for User's Tasks
-    const highPriorityTasks = await Task.countDocuments({
-      assignedTo: req.user._id,
-      priority: "High",
-    });
-    const mediumPriorityTasks = await Task.countDocuments({
-      assignedTo: req.user._id,
-      priority: "Medium",
-    });
-    const lowPriorityTasks = await Task.countDocuments({
-      assignedTo: req.user._id,
-      priority: "Low",
-    });
-
-    // User's Recent Tasks (last 5)
-    const recentTasks = await Task.find({ assignedTo: req.user._id })
-      .sort({ createdAt: -1 })
-      .limit(5)
-      .populate("createdBy", "name");
-
-    // User's Upcoming Deadlines (next 5 tasks)
-    const upcomingDeadlines = await Task.find({
-      assignedTo: req.user._id,
-      dueDate: { $gte: new Date() },
-      statue: { $ne: "Completed" },
-    })
-      .sort({ dueDate: 1 })
-      .limit(5);
-
-    // Monthly Task Completion Rate
-    const startOfMonth = new Date();
-    startOfMonth.setDate(1);
-    startOfMonth.setHours(0, 0, 0, 0);
-
-    const monthlyStats = await Task.aggregate([
+    // Ensure all possible statuses are included
+    const taskStatuses = ["Pending", "In Progress", "Completed"];
+    const taskDistributionRaw = await Task.aggregate([
       {
-        $match: {
-          assignedTo: req.user._id,
-          createdAt: { $gte: startOfMonth },
-        },
+        $match: { assignedTo: userId },
       },
       {
         $group: {
-          _id: "$statue",
+          _id: "$status",
           count: { $sum: 1 },
         },
       },
     ]);
 
-    res.json({
-      taskStats: {
-        total: totalTasks,
-        pending: pendingTasks,
-        inProgress: inProgressTasks,
-        completed: completedTasks,
+    const taskDistribution = taskStatuses.reduce((acc, status) => {
+      const formattedKey = status.replace(/\s+/g, ""); // Remove spaces for response keys
+      acc[formattedKey] =
+        taskDistributionRaw.find((item) => item._id === status)?.count || 0;
+      return acc;
+    }, {});
+
+    taskDistribution["All"] = totalTasks;
+
+    // Priority distribution for user's tasks
+    const taskPriorities = ["Low", "Medium", "High"];
+    const taskPriorityLevelsRaw = await Task.aggregate([
+      {
+        $match: { assignedTo: userId },
       },
-      priorityDistribution: {
-        high: highPriorityTasks,
-        medium: mediumPriorityTasks,
-        low: lowPriorityTasks,
+      {
+        $group: {
+          _id: "$priority",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    const taskPriorityLevels = taskPriorities.reduce((acc, priority) => {
+      acc[priority] =
+        taskPriorityLevelsRaw.find((item) => item._id === priority)?.count || 0;
+      return acc;
+    }, {});
+
+    // Fetch user's recent 10 tasks
+    const recentTasks = await Task.find({ assignedTo: userId })
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .select("title status priority dueDate createdAt")
+      .populate("createdBy", "name");
+
+    // Get upcoming deadlines for user's tasks
+    const upcomingDeadlines = await Task.find({
+      assignedTo: userId,
+      status: { $ne: "Completed" },
+      dueDate: { $gte: new Date() },
+    })
+      .sort({ dueDate: 1 })
+      .limit(5)
+      .select("title dueDate status priority");
+
+    res.status(200).json({
+      statistics: {
+        totalTasks,
+        pendingTasks,
+        completedTasks,
+        overdueTasks,
+      },
+      charts: {
+        taskDistribution,
+        taskPriorityLevels,
       },
       recentTasks,
       upcomingDeadlines,
-      monthlyStats,
     });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
