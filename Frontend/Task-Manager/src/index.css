@@ -1,11 +1,43 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "tailwindcss";
 
-@layer theme {
+@layer base {
   :root {
     --font-display: "Poppins", sans-serif;
     --breakpoint-3xl: 1920px;
-    --color-primary: #1368ec;
+
+    /* Light theme */
+    --background: 248 249 250;
+    --foreground: 33 37 41;
+
+    --muted: 233 236 239;
+    --muted-foreground: 73 80 87;
+
+    --popover: 255 255 255;
+    --popover-foreground: 33 37 41;
+
+    --card: 255 255 255;
+    --card-foreground: 33 37 41;
+
+    --border: 222 226 230;
+    --input: 222 226 230;
+  }
+
+  .dark {
+    --background: 26 27 35;
+    --foreground: 248 249 250;
+
+    --muted: 52 58 64;
+    --muted-foreground: 173 181 189;
+
+    --popover: 26 27 35;
+    --popover-foreground: 248 249 250;
+
+    --card: 33 37 41;
+    --card-foreground: 248 249 250;
+
+    --border: 52 58 64;
+    --input: 52 58 64;
   }
 }
 
@@ -15,7 +47,62 @@
   }
 
   body {
-    background-color: #fcfbfc;
-    overflow-x: hidden;
+    @apply bg-dark-50 dark:bg-dark text-dark-900 dark:text-dark-50;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors 
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 
+    disabled:pointer-events-none disabled:opacity-50
+    h-10 px-4 py-2;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-600 to-secondary-600 
+    hover:from-primary-700 hover:to-secondary-700
+    text-white 
+    shadow-lg shadow-primary-600/20
+    focus-visible:ring-primary-500;
+  }
+
+  .btn-secondary {
+    @apply bg-dark-100 dark:bg-dark-800
+    text-dark-900 dark:text-dark-50
+    hover:bg-dark-200 dark:hover:bg-dark-700
+    focus-visible:ring-dark-500;
+  }
+
+  .btn-outline {
+    @apply border border-dark-200 dark:border-dark-700
+    bg-transparent
+    hover:bg-dark-100 dark:hover:bg-dark-800
+    text-dark-900 dark:text-dark-50
+    focus-visible:ring-dark-500;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-dark-100 dark:hover:bg-dark-800
+    text-dark-900 dark:text-dark-50
+    focus-visible:ring-dark-500;
+  }
+
+  .btn-link {
+    @apply text-primary-600 dark:text-primary-400
+    hover:underline
+    focus-visible:ring-primary-500;
+  }
+
+  .btn-lg {
+    @apply h-12 px-8 text-base;
+  }
+
+  .btn-sm {
+    @apply h-8 px-3 text-xs;
+  }
+
+  .btn-icon {
+    @apply h-9 w-9 p-0;
   }
 }
