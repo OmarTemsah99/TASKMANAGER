@@ -40,10 +40,10 @@ const Login = () => {
         password: "Password is required",
       }));
       hasErrors = true;
-    } else if (password.length < 8) {
+    } else if (password.length < 3) {
       setErrors((prev) => ({
         ...prev,
-        password: "Password must be at least 8 characters",
+        password: "Password must be at least 3 characters",
       }));
       hasErrors = true;
     }
