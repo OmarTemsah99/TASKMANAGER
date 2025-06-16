@@ -58,3 +58,56 @@
     overflow-x: hidden;
   }
 }
+
+/* === Input Base Styles === */
+.input-base {
+  @apply w-full px-4 py-3 rounded-lg transition-colors duration-200;
+  @apply bg-[#2A1B5D] border-2 border-[#3D2A7D] text-white placeholder:text-gray-400;
+  @apply focus:outline-none focus:border-[#4C35A0] focus:ring-1 focus:ring-[#4C35A0];
+}
+
+/* === Input with Password === */
+.input-password {
+  @apply pr-12;
+}
+
+/* === Input Label === */
+.input-label {
+  @apply block text-sm font-medium text-gray-200 mb-2;
+}
+
+/* === Password Toggle Button === */
+.input-toggle-button {
+  @apply absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-300 focus:outline-none;
+}
+
+/* === Auth Headings === */
+.auth-heading {
+  @apply text-2xl font-medium text-white;
+}
+
+.auth-subheading {
+  @apply text-gray-400 mt-2;
+}
+
+/* === Button Gradient === */
+.button-gradient {
+  @apply w-full h-12 px-6 text-white font-medium;
+  @apply bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500;
+  @apply hover:from-blue-600 hover:via-indigo-600 hover:to-purple-600;
+  @apply rounded-lg transition-all duration-200;
+  @apply focus:outline-none focus:ring-2 focus:ring-purple-500;
+  @apply focus:ring-offset-2 focus:ring-offset-[#1E1145];
+  @apply shadow-lg shadow-purple-500/20;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+/* === Auth Link === */
+.auth-link {
+  @apply text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200;
+}
+
+/* === Auth Container === */
+.auth-container {
+  @apply w-full max-w-sm;
+}
