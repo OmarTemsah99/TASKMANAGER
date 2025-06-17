@@ -84,7 +84,7 @@ const Login = () => {
             placeholder="Enter your password"
           />
 
-          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+          {error && <p className="auth-error">{error}</p>}
 
           <div>
             <button type="submit" className="button-gradient">

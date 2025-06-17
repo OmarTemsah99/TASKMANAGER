@@ -90,6 +90,11 @@
   @apply text-gray-400 mt-2;
 }
 
+/* === Auth Container === */
+.auth-error {
+  @apply text-red-500 text-xs pb-2.5;
+}
+
 /* === Button Gradient === */
 .button-gradient {
   @apply w-full h-12 px-6 text-white font-medium;
@@ -109,5 +114,5 @@
 
 /* === Auth Container === */
 .auth-container {
-  @apply w-full max-w-sm;
+  @apply lg:w-[50%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center;
 }

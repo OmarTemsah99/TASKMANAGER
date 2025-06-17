@@ -40,7 +40,7 @@ const SignUp = () => {
 
   return (
     <AuthLayout>
-      <div className="lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center">
+      <div className="auth-container">
         <h3 className="text-xl font-semibold text-white">Create an Account</h3>
         <p className="text-xs font-semibold text-primary-300 mt-[5px] mb-6">
           Join us today by entering your details below.
@@ -83,7 +83,7 @@ const SignUp = () => {
             />
           </div>
 
-          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+          {error && <p className="auth-error">{error}</p>}
 
           <div>
             <button type="submit" className="button-gradient">
