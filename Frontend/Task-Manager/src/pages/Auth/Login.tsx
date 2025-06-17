@@ -45,7 +45,7 @@ const Login = () => {
         if (role === "admin") {
           navigate("/admin/dashboard");
         } else {
-          navigate("/user/dashboard"); // fixed typo here too
+          navigate("/user/dashboard");
         }
       }
     } catch (err) {
