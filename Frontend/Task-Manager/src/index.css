@@ -59,6 +59,11 @@
   }
 }
 
+/* === Button Gradient === */
+.gradient-bg {
+  @apply bg-gradient-to-r from-blue-800 via-indigo-700 to-purple-600;
+}
+
 /* === Input Base Styles === */
 .input-base {
   @apply w-full px-4 py-3 rounded-lg transition-colors duration-200;
@@ -114,5 +119,5 @@
 
 /* === Auth Container === */
 .auth-container {
-  @apply lg:w-[50%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center;
+  @apply lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center;
 }
