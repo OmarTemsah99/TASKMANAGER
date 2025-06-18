@@ -16,8 +16,8 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [adminInviteToken, setAdminInviteToken] = useState("");
-
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { updateUser } = useUserContext();
   const navigate = useNavigate();
@@ -25,21 +25,25 @@ const SignUp = () => {
   // Handle SignUp Form Submit
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     let profileImageUrl = "";
 
     if (!fullName) {
       setError("Please enter full name.");
+      setIsLoading(false);
       return;
     }
 
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
+      setIsLoading(false);
       return;
     }
 
     if (!password) {
       setError("Please enter the password.");
+      setIsLoading(false);
       return;
     }
 
@@ -76,22 +80,27 @@ const SignUp = () => {
       }
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        setError(err.response?.data?.message || "Login failed.");
+        setError(err.response?.data?.message || "Registration failed.");
       } else {
         setError("Something went wrong. Please try again.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <AuthLayout>
       <div className="auth-container">
-        <h3 className="text-xl font-semibold text-white">Create an Account</h3>
-        <p className="text-xs font-semibold text-primary-300 mt-[5px] mb-6">
-          Join us today by entering your details below.
-        </p>
+        <div className="mb-8">
+          <h3 className="auth-heading">Create an Account</h3>
+          <p className="auth-subheading">
+            Join us today by entering your details below.
+          </p>
+          <div className="w-12 h-1 gradient-bg rounded-full mt-4"></div>
+        </div>
 
-        <form onSubmit={handleSignUp} noValidate>
+        <form onSubmit={handleSignUp} className="space-y-6" noValidate>
           <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -123,24 +132,43 @@ const SignUp = () => {
               label="Admin Invite Token"
               value={adminInviteToken}
               onChange={({ target }) => setAdminInviteToken(target.value)}
-              placeholder="Admin Code"
+              placeholder="Admin Code (Optional)"
               type="text"
             />
           </div>
 
-          {error && <p className="auth-error">{error}</p>}
+          {error && (
+            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
+              <p className="text-red-400 text-sm">{error}</p>
+            </div>
+          )}
 
-          <div>
-            <button type="submit" className="button-gradient">
-              SIGN UP
+          <div className="pt-2">
+            <button
+              type="submit"
+              className="button-gradient relative"
+              disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  </div>
+                  <span className="opacity-0">SIGN UP</span>
+                </>
+              ) : (
+                "SIGN UP"
+              )}
             </button>
           </div>
-          <p className="text-[13px] text-gray-400 mt-3">
-            Already have an account?{" "}
-            <Link to="/login" className="auth-link">
-              Login
-            </Link>
-          </p>
+
+          <div className="text-center pt-4">
+            <p className="text-gray-400 text-sm">
+              Already have an account?{" "}
+              <Link to="/login" className="auth-link">
+                Login
+              </Link>
+            </p>
+          </div>
         </form>
       </div>
     </AuthLayout>

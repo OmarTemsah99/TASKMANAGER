@@ -12,7 +12,7 @@ const DashboardLayout = ({ children, activeMenu }: DashboardLayoutProps) => {
   const { user } = useUserContext();
 
   return (
-    <div>
+    <div className="dashboard-container">
       <Navbar activeMenu={activeMenu} />
 
       {user && (
@@ -21,7 +21,9 @@ const DashboardLayout = ({ children, activeMenu }: DashboardLayoutProps) => {
             <SideMenu activeMenu={activeMenu} />
           </div>
 
-          <div className="grow mx-5">{children}</div>
+          <div className="grow">
+            <div className="dashboard-content">{children}</div>
+          </div>
         </div>
       )}
     </div>

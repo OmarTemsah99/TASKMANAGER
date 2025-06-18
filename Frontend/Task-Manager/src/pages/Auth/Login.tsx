@@ -12,20 +12,24 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { updateUser } = useUserContext();
   const navigate = useNavigate();
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
+      setIsLoading(false);
       return;
     }
 
     if (!password) {
       setError("Please enter the password.");
+      setIsLoading(false);
       return;
     }
 
@@ -57,6 +61,8 @@ const Login = () => {
       } else {
         setError("Something went wrong. Please try again.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -66,9 +72,10 @@ const Login = () => {
         <div className="mb-8">
           <h3 className="auth-heading">Welcome Back</h3>
           <p className="auth-subheading">Please enter your details to log in</p>
+          <div className="w-12 h-1 gradient-bg rounded-full mt-4"></div>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-5" noValidate>
+        <form onSubmit={handleLogin} className="space-y-6" noValidate>
           <Input
             type="email"
             label="Email"
@@ -84,19 +91,38 @@ const Login = () => {
             placeholder="Enter your password"
           />
 
-          {error && <p className="auth-error">{error}</p>}
+          {error && (
+            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
+              <p className="text-red-400 text-sm">{error}</p>
+            </div>
+          )}
 
-          <div>
-            <button type="submit" className="button-gradient">
-              LOGIN
+          <div className="pt-2">
+            <button
+              type="submit"
+              className="button-gradient relative"
+              disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  </div>
+                  <span className="opacity-0">LOGIN</span>
+                </>
+              ) : (
+                "LOGIN"
+              )}
             </button>
           </div>
-          <p className="mt-6 text-center text-gray-400 text-sm">
-            Don't have an account?{" "}
-            <Link to="/signup" className="auth-link">
-              Sign up
-            </Link>
-          </p>
+
+          <div className="text-center pt-4">
+            <p className="text-gray-400 text-sm">
+              Don't have an account?{" "}
+              <Link to="/signup" className="auth-link">
+                Sign up
+              </Link>
+            </p>
+          </div>
         </form>
       </div>
     </AuthLayout>

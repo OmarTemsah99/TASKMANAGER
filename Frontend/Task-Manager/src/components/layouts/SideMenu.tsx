@@ -44,41 +44,39 @@ const SideMenu = ({ activeMenu }: SideMenuProps) => {
   }, [user]);
 
   return (
-    <div className="w-64 h-[calc(100vh-61px)] bg-white border-r border-gray-200/50 sticky top-[61px] z-20">
-      <div className="flex flex-col items-center justify-center mb-7 pt-5">
+    <div className="sidemenu-container w-64 h-[calc(100vh-61px)] sticky top-[61px] z-20">
+      <div className="sidemenu-profile-section flex flex-col items-center justify-center pt-5 pb-4 mt-4">
         <div className="relative">
           <img
             src={user?.profileImageUrl}
             alt="Profile Image"
-            className="w-20 h-20 bg-slate-400 rounded-full"
+            className="sidemenu-profile-image"
           />
         </div>
 
         {user?.role === "admin" && (
-          <div className="text-[10px] font-medium text-white bg-primary px-3 py-0 rounded mt-1">
-            Admin
-          </div>
+          <div className="sidemenu-admin-badge mt-2">Admin</div>
         )}
 
-        <h5 className="text-gray-950 font-medium leading-6 mt-3">
+        <h5 className="sidemenu-user-name leading-6 mt-3">
           {user?.name || ""}
         </h5>
-        <p className="text-[12px] text-gray-500">{user?.email || ""}</p>
+        <p className="sidemenu-user-email">{user?.email || ""}</p>
       </div>
 
-      {sideMenuData.map((item) => (
-        <button
-          key={`menu_${item.id}`}
-          className={`w-full flex items-center gap-4 text-[15px] ${
-            activeMenu === item.label
-              ? "text-primary-300 gradient-bg border-r-3"
-              : ""
-          } py-3 px-6 cursor-pointer`}
-          onClick={() => handleClick(item.path)}>
-          <item.icon className="" />
-          {item.label}
-        </button>
-      ))}
+      <div className="mt-4">
+        {sideMenuData.map((item) => (
+          <button
+            key={`menu_${item.id}`}
+            className={`sidemenu-item ${
+              activeMenu === item.label ? "sidemenu-item-active" : ""
+            }`}
+            onClick={() => handleClick(item.path)}>
+            <item.icon className="text-lg" />
+            {item.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

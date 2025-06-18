@@ -12,19 +12,35 @@ interface InputProps
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
+  error?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    { label, className = "", type, value, onChange, placeholder, ...props },
+    {
+      label,
+      className = "",
+      type,
+      value,
+      onChange,
+      placeholder,
+      error,
+      ...props
+    },
     ref
   ) => {
     const [showPassword, setShowPassword] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
     const isPassword = type === "password";
 
     return (
       <div className="mb-4">
-        {label && <label className="input-label">{label}</label>}
+        <label
+          className={`input-label ${
+            isFocused || value ? "text-blue-400" : ""
+          }`}>
+          {label}
+        </label>
         <div className="relative">
           <input
             ref={ref}
@@ -32,8 +48,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             value={value}
             onChange={onChange}
             placeholder={placeholder}
-            className={`input-base ${
-              isPassword ? "input-password" : ""
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            className={`input-base ${isPassword ? "input-password" : ""} ${
+              error ? "border-red-500 focus:border-red-500" : ""
             } ${className}`}
             {...props}
           />
@@ -43,13 +61,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               onClick={() => setShowPassword(!showPassword)}
               className="input-toggle-button">
               {showPassword ? (
-                <HiEyeOff className="w-5 h-5" />
+                <HiEyeOff className="w-5 h-5 transition-colors duration-200" />
               ) : (
-                <HiEye className="w-5 h-5" />
+                <HiEye className="w-5 h-5 transition-colors duration-200" />
               )}
             </button>
           )}
         </div>
+        {error && <p className="auth-error mt-1">{error}</p>}
       </div>
     );
   }

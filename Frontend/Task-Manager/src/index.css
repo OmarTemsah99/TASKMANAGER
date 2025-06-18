@@ -5,7 +5,7 @@
   --font-display: "Poppins", "sans-serif";
   --breakpoint-3xl: 1920px;
 
-  /* Move your custom colors from tailwind.config.js here */
+  /* Primary Blue-Purple Gradient Colors */
   --color-primary: #6366f1;
   --color-primary-dark: #4338ca;
   --color-primary-50: #eef2ff;
@@ -20,6 +20,7 @@
   --color-primary-900: #312e81;
   --color-primary-950: #1e1b4b;
 
+  /* Secondary Purple Colors */
   --color-secondary: #8b5cf6;
   --color-secondary-dark: #6d28d9;
   --color-secondary-50: #f5f3ff;
@@ -34,6 +35,7 @@
   --color-secondary-900: #4c1d95;
   --color-secondary-950: #2e1065;
 
+  /* Dark Theme Base Colors */
   --color-dark: #1a1b23;
   --color-dark-50: #f8f9fa;
   --color-dark-100: #f1f3f5;
@@ -46,15 +48,23 @@
   --color-dark-800: #343a40;
   --color-dark-900: #212529;
   --color-dark-950: #1a1b23;
+
+  /* Dark Mode Surface Colors */
+  --color-surface-primary: #1e1145;
+  --color-surface-secondary: #2a1b5d;
+  --color-surface-elevated: #3d2a7d;
+  --color-surface-hover: #4c35a0;
 }
 
 @layer base {
   html {
     font-family: var(--font-display);
+    scroll-behavior: smooth;
   }
 
   body {
-    background-color: #fcfbfc;
+    background-color: #1e1145;
+    color: #ffffff;
     overflow-x: hidden;
   }
 }
@@ -64,11 +74,92 @@
   @apply bg-gradient-to-r from-blue-800 via-indigo-700 to-purple-600;
 }
 
+/* === Navbar Dark Mode Styling === */
+.navbar-dark {
+  @apply bg-gradient-to-r from-[#1E1145] via-[#2A1B5D] to-[#3D2A7D];
+  @apply border-[#4C35A0]/30 backdrop-blur-md;
+  @apply shadow-lg shadow-purple-500/10;
+}
+
+.navbar-text {
+  @apply text-white font-medium;
+}
+
+.navbar-button {
+  @apply text-white hover:text-blue-300 transition-colors duration-200;
+}
+
+/* === Side Menu Dark Mode === */
+.sidemenu-container {
+  @apply bg-gradient-to-b from-[#1E1145] to-[#2A1B5D];
+  @apply border-r border-[#4C35A0]/30;
+  @apply shadow-xl shadow-purple-500/10;
+}
+
+.sidemenu-profile-section {
+  @apply bg-gradient-to-r from-[#2A1B5D] to-[#3D2A7D];
+  @apply border border-[#4C35A0]/20 rounded-lg mx-4 mb-6;
+  @apply shadow-lg shadow-purple-500/10;
+}
+
+.sidemenu-profile-image {
+  @apply w-20 h-20 rounded-full border-3 border-blue-400/50;
+  @apply shadow-lg shadow-blue-500/20;
+}
+
+.sidemenu-admin-badge {
+  @apply text-xs font-medium text-white;
+  @apply bg-gradient-to-r from-blue-500 to-purple-500;
+  @apply px-3 py-1 rounded-full shadow-md;
+}
+
+.sidemenu-user-name {
+  @apply text-white font-medium;
+}
+
+.sidemenu-user-email {
+  @apply text-gray-300 text-sm;
+}
+
+.sidemenu-item {
+  @apply w-full flex items-center gap-4 text-sm;
+  @apply text-gray-300 hover:text-white;
+  @apply py-3 px-6 cursor-pointer transition-all duration-200;
+  @apply hover:bg-gradient-to-r hover:from-blue-800/20 hover:to-purple-600/20;
+  @apply border-l-4 border-transparent hover:border-blue-400;
+}
+
+.sidemenu-item-active {
+  @apply text-blue-300 bg-gradient-to-r from-blue-800/30 to-purple-600/30;
+  @apply border-l-4 border-blue-400 shadow-inner;
+}
+
+/* === Dashboard Content Dark Mode === */
+.dashboard-container {
+  @apply bg-gradient-to-br from-[#1E1145] via-[#2A1B5D] to-[#1E1145];
+  @apply min-h-screen;
+}
+
+.dashboard-content {
+  @apply bg-[#2A1B5D]/50 backdrop-blur-sm;
+  @apply border border-[#4C35A0]/20 rounded-xl;
+  @apply shadow-xl shadow-purple-500/10;
+  @apply p-6 m-5;
+}
+
 /* === Input Base Styles === */
 .input-base {
-  @apply w-full px-4 py-3 rounded-lg transition-colors duration-200;
-  @apply bg-[#2A1B5D] border-2 border-[#3D2A7D] text-white placeholder:text-gray-400;
-  @apply focus:outline-none focus:border-[#4C35A0] focus:ring-1 focus:ring-[#4C35A0];
+  @apply w-full px-4 py-3 rounded-lg transition-all duration-300;
+  @apply bg-[#2A1B5D]/80 backdrop-blur-sm border-2 border-[#3D2A7D] text-white placeholder:text-gray-400;
+  @apply focus:outline-none focus:border-[#4C35A0] focus:ring-2 focus:ring-[#4C35A0]/30;
+  @apply hover:border-[#4C35A0]/60 hover:bg-[#2A1B5D];
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.input-base:focus {
+  box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.1),
+    0 4px 6px -2px rgba(99, 102, 241, 0.05);
 }
 
 /* === Input with Password === */
@@ -78,12 +169,13 @@
 
 /* === Input Label === */
 .input-label {
-  @apply block text-sm font-medium text-gray-200 mb-2;
+  @apply block text-sm font-medium text-gray-200 mb-2 transition-colors duration-200;
 }
 
 /* === Password Toggle Button === */
 .input-toggle-button {
-  @apply absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-300 focus:outline-none;
+  @apply absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-400 focus:outline-none;
+  @apply transition-all duration-200 hover:scale-110;
 }
 
 /* === Auth Headings === */
@@ -92,12 +184,13 @@
 }
 
 .auth-subheading {
-  @apply text-gray-400 mt-2;
+  @apply text-gray-300 mt-2;
 }
 
 /* === Auth Container === */
-.auth-error {
-  @apply text-red-500 text-xs pb-2.5;
+.auth-container {
+  @apply lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center;
+  animation: fadeInUp 0.6s ease-out;
 }
 
 /* === Button Gradient === */
@@ -105,19 +198,281 @@
   @apply w-full h-12 px-6 text-white font-medium;
   @apply bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500;
   @apply hover:from-blue-600 hover:via-indigo-600 hover:to-purple-600;
-  @apply rounded-lg transition-all duration-200;
-  @apply focus:outline-none focus:ring-2 focus:ring-purple-500;
+  @apply rounded-lg transition-all duration-300;
+  @apply focus:outline-none focus:ring-2 focus:ring-purple-500/50;
   @apply focus:ring-offset-2 focus:ring-offset-[#1E1145];
-  @apply shadow-lg shadow-purple-500/20;
+  @apply shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/35;
   @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply transform hover:scale-[1.02] active:scale-[0.98];
+  position: relative;
+  overflow: hidden;
+}
+
+.button-gradient::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.button-gradient:hover::before {
+  left: 100%;
+}
+
+/* === Secondary Button === */
+.button-secondary {
+  @apply px-4 py-2 text-sm font-medium;
+  @apply bg-gradient-to-r from-[#2A1B5D] to-[#3D2A7D];
+  @apply text-white border-2 border-[#4C35A0]/50;
+  @apply hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/20;
+  @apply rounded-lg transition-all duration-200;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-400/50;
+}
+
+/* === Card Components === */
+.card-dark {
+  @apply bg-gradient-to-br from-[#2A1B5D]/80 to-[#3D2A7D]/80;
+  @apply border border-[#4C35A0]/30 rounded-xl;
+  @apply shadow-xl shadow-purple-500/10;
+  @apply backdrop-blur-sm;
+}
+
+.card-header {
+  @apply border-b border-[#4C35A0]/20 pb-4 mb-4;
+}
+
+.card-title {
+  @apply text-lg font-semibold text-white;
+}
+
+.card-subtitle {
+  @apply text-sm text-gray-300;
 }
 
 /* === Auth Link === */
 .auth-link {
-  @apply text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200;
+  @apply text-blue-400 hover:text-blue-300 font-medium transition-all duration-200;
+  @apply hover:underline decoration-2 underline-offset-2;
 }
 
-/* === Auth Container === */
-.auth-container {
-  @apply lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center;
+/* === Table Dark Mode === */
+.table-dark {
+  @apply bg-[#2A1B5D]/50 border border-[#4C35A0]/20 rounded-lg overflow-hidden;
+}
+
+.table-header {
+  @apply bg-gradient-to-r from-[#3D2A7D] to-[#4C35A0];
+  @apply text-white font-medium;
+}
+
+.table-row {
+  @apply border-b border-[#4C35A0]/10;
+  @apply hover:bg-gradient-to-r hover:from-blue-800/10 hover:to-purple-600/10;
+  @apply transition-colors duration-200;
+}
+
+.table-cell {
+  @apply text-gray-200 py-3 px-4;
+}
+
+/* === Status Badges === */
+.status-pending {
+  @apply bg-yellow-500/20 text-yellow-300 border border-yellow-500/30;
+  @apply px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.status-completed {
+  @apply bg-green-500/20 text-green-300 border border-green-500/30;
+  @apply px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.status-in-progress {
+  @apply bg-blue-500/20 text-blue-300 border border-blue-500/30;
+  @apply px-2 py-1 rounded-full text-xs font-medium;
+}
+
+/* === Modal Dark Mode === */
+.modal-overlay {
+  @apply fixed inset-0 bg-black/70 backdrop-blur-sm z-50;
+}
+
+.modal-container {
+  @apply bg-gradient-to-br from-[#2A1B5D] to-[#3D2A7D];
+  @apply border border-[#4C35A0]/30 rounded-xl;
+  @apply shadow-2xl shadow-purple-500/20;
+}
+
+.modal-header {
+  @apply border-b border-[#4C35A0]/20 pb-4 mb-4;
+}
+
+.modal-title {
+  @apply text-xl font-semibold text-white;
+}
+
+/* === Scrollbar Dark Mode === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-[#1E1145];
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-b from-blue-600 to-purple-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gradient-to-b from-blue-500 to-purple-500;
+}
+
+/* === Loading Spinner === */
+.spinner {
+  @apply animate-spin rounded-full border-2 border-transparent;
+  @apply border-t-blue-400 border-r-purple-400;
+}
+
+/* === Notification/Toast Dark Mode === */
+.toast-success {
+  @apply bg-gradient-to-r from-green-800 to-green-700;
+  @apply border border-green-600/50 text-green-100;
+  @apply shadow-lg shadow-green-500/20;
+}
+
+.toast-error {
+  @apply bg-gradient-to-r from-red-800 to-red-700;
+  @apply border border-red-600/50 text-red-100;
+  @apply shadow-lg shadow-red-500/20;
+}
+
+.toast-info {
+  @apply bg-gradient-to-r from-blue-800 to-blue-700;
+  @apply border border-blue-600/50 text-blue-100;
+  @apply shadow-lg shadow-blue-500/20;
+}
+
+/* === Responsive Adjustments === */
+@media (max-width: 1080px) {
+  .mobile-navbar {
+    @apply bg-gradient-to-r from-[#1E1145] to-[#2A1B5D];
+  }
+
+  .mobile-sidemenu {
+    @apply bg-gradient-to-b from-[#1E1145] to-[#2A1B5D];
+    @apply shadow-2xl shadow-purple-500/20;
+  }
+}
+
+/* Additional enhancements to add to your existing index.css */
+
+/* === Enhanced Animations === */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+/* === Enhanced Auth Error === */
+.auth-error {
+  @apply text-red-400 text-sm;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* === Profile Photo Enhancements === */
+.profile-photo-container {
+  @apply relative transition-all duration-300;
+}
+
+.profile-photo-container:hover {
+  transform: scale(1.05);
+}
+
+/* === Form Spacing === */
+.form-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+
+.form-grid > * {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.form-grid > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.form-grid > *:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.form-grid > *:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.form-grid > *:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* === Error Alert Box === */
+.error-alert {
+  @apply bg-red-500/10 border border-red-500/30 rounded-lg p-3;
+  @apply backdrop-blur-sm;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* === Success State === */
+.success-alert {
+  @apply bg-green-500/10 border border-green-500/30 rounded-lg p-3;
+  @apply backdrop-blur-sm;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* === Focus Ring Utilities === */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-[#1E1145];
+}
+
+/* === Mobile Optimizations === */
+@media (max-width: 768px) {
+  .auth-container {
+    @apply px-4;
+  }
+
+  .button-gradient {
+    @apply h-14 text-base;
+  }
+
+  .input-base {
+    @apply py-4 text-base;
+  }
 }

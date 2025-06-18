@@ -15,21 +15,28 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
       <div className="flex flex-1 relative z-10 w-full">
         {/* Left section with form */}
         <div className="w-full lg:w-1/2 flex flex-col px-6 md:px-12 py-8">
-          <h2 className="text-xl font-bold text-blue-400">
-            Task Manager WebApp
-          </h2>
+          <div className="mb-8 lg:mb-12">
+            <h2 className="text-xl font-bold text-blue-400 mb-2">
+              Task Manager WebApp
+            </h2>
+            <div className="w-16 h-1 gradient-bg rounded-full"></div>
+          </div>
+
           <div className="flex-1 flex items-center">
-            <div className="w-full">{children}</div>
+            <div className="w-full max-w-md mx-auto">{children}</div>
           </div>
         </div>
 
         {/* Right section with illustration */}
-        <div className="hidden lg:flex w-1/2 items-center justify-center">
-          <img
-            src={UI_IMG}
-            className="w-3/4 drop-shadow-2xl"
-            alt="Task Management Illustration"
-          />
+        <div className="hidden lg:flex w-1/2 items-center justify-center p-8">
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-indigo-500/20 to-purple-500/20 rounded-full blur-3xl transform scale-110"></div>
+            <img
+              src={UI_IMG}
+              className="w-3/4 max-w-lg drop-shadow-2xl relative z-10 mx-auto"
+              alt="Task Management Illustration"
+            />
+          </div>
         </div>
       </div>
     </div>
