@@ -239,6 +239,12 @@
 }
 
 /* === Card Components === */
+.card {
+  @apply bg-gradient-to-br from-[#2A1B5D]/90 to-[#3D2A7D]/80 p-6 rounded-2xl;
+  @apply shadow-2xl shadow-purple-500/20 border border-[#4C35A0]/30;
+  @apply backdrop-blur-sm;
+}
+
 .card-dark {
   @apply bg-gradient-to-br from-[#2A1B5D]/80 to-[#3D2A7D]/80;
   @apply border border-[#4C35A0]/30 rounded-xl;
