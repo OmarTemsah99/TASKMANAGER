@@ -9,6 +9,26 @@ import moment from "moment";
 import { IoMdCard } from "react-icons/io";
 import InfoCard from "../../components/ui/InfoCard";
 import { addThousandsSeparator } from "../../utils/helper";
+import { LuArrowRight } from "react-icons/lu";
+import TaskListTable from "../../components/TaskListTable";
+
+interface DashboardData {
+  charts: {
+    taskDistribution: {
+      All: number;
+      Pending: number;
+      InProgress: number;
+      Compeleted: number;
+    };
+  };
+  recentTasks: {
+    _id: string;
+    title: string;
+    status: string;
+    priority: string;
+    createdAt?: string;
+  }[];
+}
 
 const Dashboard = () => {
   useUserAuth();
@@ -17,7 +37,9 @@ const Dashboard = () => {
 
   const navigate = useNavigate();
 
-  const [dashboardData, setDashboardData] = useState(null);
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(
+    null
+  );
   const [pieChartData, setPieChartData] = useState([]);
   const [barChartData, setBarChartData] = useState([]);
 
@@ -32,6 +54,10 @@ const Dashboard = () => {
     } catch (error) {
       console.error("Error fetch users: ", error);
     }
+  };
+
+  const onSeeMore = () => {
+    navigate("/admin/tasks");
   };
 
   useEffect(() => {
@@ -88,6 +114,21 @@ const Dashboard = () => {
             )}
             color="bg-lime-500"
           />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4 md:my-6">
+        <div className="md:col-span-2">
+          <div className="card">
+            <div className="flex items-center justify-between">
+              <h5 className="text-lg">Recent Tasks</h5>
+              <button className="card-btn" onClick={onSeeMore}>
+                See All <LuArrowRight className="text-base" />
+              </button>
+            </div>
+
+            <TaskListTable tableData={dashboardData?.recentTasks || []} />
+          </div>
         </div>
       </div>
     </DashboardLayout>

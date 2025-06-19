@@ -264,6 +264,14 @@
   @apply text-sm text-gray-300;
 }
 
+.card-btn {
+  @apply flex items-center gap-3 text-[12px] font-medium text-gray-300 hover:text-blue-300;
+  @apply bg-[#2A1B5D]/60 hover:bg-gradient-to-r hover:from-blue-800/30 hover:to-purple-600/30;
+  @apply px-4 py-1.5 rounded-lg border border-[#4C35A0]/30 hover:border-blue-400/50;
+  @apply cursor-pointer transition-all duration-200;
+  @apply backdrop-blur-sm hover:shadow-lg hover:shadow-blue-500/10;
+}
+
 /* === Auth Link === */
 .auth-link {
   @apply text-blue-400 hover:text-blue-300 font-medium transition-all duration-200;
