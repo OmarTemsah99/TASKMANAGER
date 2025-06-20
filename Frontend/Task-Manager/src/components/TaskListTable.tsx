@@ -39,57 +39,108 @@ const TaskListTable = ({ tableData }: TaskListTableProps) => {
     }
   };
 
-  return (
-    <div className="table-dark mt-4">
-      <table className="min-w-full">
-        <thead className="table-header">
-          <tr>
-            <th className="py-4 px-6 text-left text-sm font-medium text-white">
-              Task Name
-            </th>
-            <th className="py-4 px-6 text-left text-sm font-medium text-white">
-              Status
-            </th>
-            <th className="py-4 px-6 text-left text-sm font-medium text-white">
-              Priority
-            </th>
-            <th className="py-4 px-6 text-left text-sm font-medium text-white hidden md:table-cell">
-              Created On
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableData.map((task) => (
-            <tr key={task._id} className="table-row">
-              <td className="table-cell font-medium">
-                <div className="line-clamp-1 overflow-hidden">{task.title}</div>
-              </td>
-              <td className="table-cell">
-                <span
-                  className={`px-3 py-1.5 text-xs font-medium rounded-full inline-block ${getStatusBadgeColor(
-                    task.status
-                  )}`}>
-                  {task.status}
-                </span>
-              </td>
-              <td className="table-cell">
-                <span
-                  className={`px-3 py-1.5 text-xs font-medium rounded-full inline-block ${getPriorityBadgeColor(
-                    task.priority
-                  )}`}>
-                  {task.priority}
-                </span>
-              </td>
-              <td className="table-cell text-nowrap md:table-cell">
-                {task.createdAt
-                  ? moment(task.createdAt).format("Do MMM YYYY")
-                  : "N/A"}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  // Mobile card view for small screens
+  const MobileTaskCard = ({ task }: { task: Task }) => (
+    <div className="bg-[#2A1B5D]/40 border border-[#4C35A0]/20 rounded-lg p-4 mb-3 backdrop-blur-sm">
+      <div className="flex justify-between items-start mb-3">
+        <h3 className="text-white font-medium text-sm leading-tight flex-1 mr-2">
+          {task.title}
+        </h3>
+        <span
+          className={`px-2 py-1 text-xs font-medium rounded-full whitespace-nowrap ${getStatusBadgeColor(
+            task.status
+          )}`}>
+          {task.status}
+        </span>
+      </div>
+
+      <div className="flex justify-between items-center">
+        <span
+          className={`px-2 py-1 text-xs font-medium rounded-full ${getPriorityBadgeColor(
+            task.priority
+          )}`}>
+          {task.priority}
+        </span>
+        <span className="text-gray-400 text-xs">
+          {task.createdAt
+            ? moment(task.createdAt).format("MMM D, YYYY")
+            : "N/A"}
+        </span>
+      </div>
     </div>
+  );
+
+  if (tableData.length === 0) {
+    return (
+      <div className="text-center py-8 text-gray-400">
+        <p>No recent tasks found</p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {/* Mobile View - Cards */}
+      <div className="block sm:hidden mt-4">
+        {tableData.map((task) => (
+          <MobileTaskCard key={task._id} task={task} />
+        ))}
+      </div>
+
+      {/* Desktop/Tablet View - Table */}
+      <div className="hidden sm:block table-dark mt-4">
+        <table className="min-w-full">
+          <thead className="table-header">
+            <tr>
+              <th className="py-3 sm:py-4 px-3 sm:px-6 text-left text-xs sm:text-sm font-medium text-white">
+                Task Name
+              </th>
+              <th className="py-3 sm:py-4 px-3 sm:px-6 text-left text-xs sm:text-sm font-medium text-white">
+                Status
+              </th>
+              <th className="py-3 sm:py-4 px-3 sm:px-6 text-left text-xs sm:text-sm font-medium text-white">
+                Priority
+              </th>
+              <th className="py-3 sm:py-4 px-3 sm:px-6 text-left text-xs sm:text-sm font-medium text-white hidden md:table-cell">
+                Created On
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {tableData.map((task) => (
+              <tr key={task._id} className="table-row">
+                <td className="py-3 sm:py-4 px-3 sm:px-6 text-gray-200 font-medium">
+                  <div className="line-clamp-2 text-xs sm:text-sm">
+                    {task.title}
+                  </div>
+                </td>
+                <td className="py-3 sm:py-4 px-3 sm:px-6 text-gray-200">
+                  <span
+                    className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs font-medium rounded-full inline-block ${getStatusBadgeColor(
+                      task.status
+                    )}`}>
+                    {task.status}
+                  </span>
+                </td>
+                <td className="py-3 sm:py-4 px-3 sm:px-6 text-gray-200">
+                  <span
+                    className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs font-medium rounded-full inline-block ${getPriorityBadgeColor(
+                      task.priority
+                    )}`}>
+                    {task.priority}
+                  </span>
+                </td>
+                <td className="py-3 sm:py-4 px-3 sm:px-6 text-gray-200 text-xs sm:text-sm whitespace-nowrap hidden md:table-cell">
+                  {task.createdAt
+                    ? moment(task.createdAt).format("Do MMM YYYY")
+                    : "N/A"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 
