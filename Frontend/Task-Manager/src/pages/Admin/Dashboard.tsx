@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import { useUserAuth } from "../../hooks/useUserAuth";
 import { useUserContext } from "../../hooks/useUserContext";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import moment from "moment";
@@ -79,29 +79,29 @@ const Dashboard = () => {
     setBarChartData(priorityLevelData);
   };
 
-  const getDashboardData = async () => {
+  const onSeeMore = () => {
+    navigate("/admin/tasks");
+  };
+
+  const getDashboardData = useCallback(async () => {
     try {
       const response = await axiosInstance.get(
         API_PATHS.TASKS.GET_DASHBOARD_DATA
       );
       if (response.data) {
         setDashboardData(response.data);
-        prepareChartData(response.data?.charts || null);
+        prepareChartData(response.data?.charts || {});
       }
     } catch (error) {
       console.error("Error fetch users: ", error);
     }
-  };
-
-  const onSeeMore = () => {
-    navigate("/admin/tasks");
-  };
+  }, []); // no dependencies
 
   useEffect(() => {
     getDashboardData();
 
     return () => {};
-  }, []);
+  }, [getDashboardData]);
 
   return (
     <DashboardLayout activeMenu="Dashboard">
