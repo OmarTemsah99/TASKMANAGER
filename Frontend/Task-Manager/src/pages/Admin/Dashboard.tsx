@@ -17,6 +17,7 @@ import InfoCard from "../../components/ui/InfoCard";
 import { addThousandsSeparator } from "../../utils/helper";
 import TaskListTable from "../../components/TaskListTable";
 import CustomPieChart from "../../components/Charts/CustomPieChart";
+import CustomBarChart from "../../components/Charts/CustomBarChart";
 
 interface DashboardData {
   charts: {
@@ -170,6 +171,16 @@ const Dashboard = () => {
           </div>
 
           <CustomPieChart data={pieChartData} color={COLORS} />
+        </div>
+      </div>
+
+      <div className="mb-5">
+        <div className="card">
+          <div className="flex items-center justify-between">
+            <h5 className="font-medium">Task Priority Levels</h5>
+          </div>
+
+          <CustomBarChart data={barChartData} />
         </div>
       </div>
 
