@@ -164,22 +164,18 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="mb-5">
-        <div className="card">
+      {/* Charts Section - Responsive Side by Side on Large Screens */}
+      <div className="mb-5 flex flex-col lg:flex-row gap-5">
+        <div className="card w-full lg:w-1/2">
           <div className="flex items-center justify-between">
             <h5 className="font-medium">Task Distribution</h5>
           </div>
-
           <CustomPieChart data={pieChartData} color={COLORS} />
         </div>
-      </div>
-
-      <div className="mb-5">
-        <div className="card">
+        <div className="card w-full lg:w-1/2">
           <div className="flex items-center justify-between">
             <h5 className="font-medium">Task Priority Levels</h5>
           </div>
-
           <CustomBarChart data={barChartData} />
         </div>
       </div>

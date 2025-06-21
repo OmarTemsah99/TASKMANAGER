@@ -21,7 +21,7 @@ interface CustomBarChartProps {
 
 const CustomBarChart = ({ data }: CustomBarChartProps) => {
   // Function to alternate colors
-  const getBarColor = (entry) => {
+  const getBarColor = (entry: BarChartData) => {
     switch (entry?.priority) {
       case "Low":
         return "#00BC7D";
@@ -49,16 +49,10 @@ const CustomBarChart = ({ data }: CustomBarChartProps) => {
           />
           <YAxis tick={{ fontSize: 12, fill: "#555" }} stroke="none" />
           <Tooltip
-            content={<CustomTooltip />}
+            content={<CustomTooltip />} // Now works for both Bar and Pie
             cursor={{ fill: "transparent" }}
           />
-          <Bar
-            dataKey="count"
-            nameKey="priority"
-            fill="#FF8042"
-            radius={[10, 10, 0, 0]}
-            activeDot={{ r: 8, fill: "yellow" }}
-            activeStyle={{ fill: "green" }}>
+          <Bar dataKey="count" fill="#FF8042" radius={[10, 10, 0, 0]}>
             {data.map((entry, index) => (
               <Cell key={index} fill={getBarColor(entry)} />
             ))}
