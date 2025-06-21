@@ -10,7 +10,8 @@ const Navbar = ({ activeMenu }: NavbarProps) => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
 
   return (
-    <div className="navbar-dark flex gap-5 py-4 px-7 sticky top-0 z-30">
+    <div className="navbar-dark flex gap-5 px-4 py-3 sticky top-0 z-30 h-[61px] items-center">
+      {/* Hamburger button: visible below lg (1024px) */}
       <button
         className="navbar-button block lg:hidden"
         onClick={() => {
@@ -25,8 +26,9 @@ const Navbar = ({ activeMenu }: NavbarProps) => {
 
       <h2 className="navbar-text text-lg">Task Manager</h2>
 
+      {/* Mobile sidemenu overlay */}
       {openSideMenu && (
-        <div className="fixed top-[61px] -ml-4 mobile-sidemenu">
+        <div className="fixed top-[61px] left-0 w-64 h-[calc(100vh-61px)] z-40 mobile-sidemenu">
           <SideMenu activeMenu={activeMenu} />
         </div>
       )}

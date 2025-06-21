@@ -92,6 +92,7 @@
   @apply bg-gradient-to-r from-[#1E1145] via-[#2A1B5D] to-[#3D2A7D];
   @apply border-[#4C35A0]/30 backdrop-blur-md;
   @apply shadow-lg shadow-purple-500/10;
+  @apply h-[61px] items-center;
 }
 
 .navbar-text {
@@ -109,6 +110,7 @@
   @apply bg-gradient-to-b from-[#1E1145] to-[#2A1B5D];
   @apply border-r border-[#4C35A0]/30;
   @apply shadow-xl shadow-purple-500/10;
+  @apply p-0 m-0 h-full min-h-[calc(100vh-61px)];
 }
 
 .sidemenu-profile-section {

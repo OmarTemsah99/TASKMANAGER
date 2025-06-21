@@ -12,16 +12,18 @@ const DashboardLayout = ({ children, activeMenu }: DashboardLayoutProps) => {
   const { user } = useUserContext();
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container min-h-screen flex flex-col">
       <Navbar activeMenu={activeMenu} />
 
       {user && (
-        <div className="flex">
-          <div className="max-[1080px]:hidden">
+        <div className="flex flex-1">
+          {/* Sidemenu: visible on >=1024px (lg), hidden below */}
+          <div className="hidden lg:block">
             <SideMenu activeMenu={activeMenu} />
           </div>
 
-          <div className="grow">
+          {/* Main content grows and fills remaining space */}
+          <div className="flex-1 min-w-0">
             <div className="dashboard-content">{children}</div>
           </div>
         </div>

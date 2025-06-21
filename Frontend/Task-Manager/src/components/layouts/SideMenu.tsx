@@ -44,7 +44,7 @@ const SideMenu = ({ activeMenu }: SideMenuProps) => {
   }, [user]);
 
   return (
-    <div className="sidemenu-container w-64 h-[calc(100vh-61px)] sticky top-[61px] z-20">
+    <div className="sidemenu-container w-64 h-full min-h-[calc(100vh-61px)] sticky top-[61px] z-20 p-0 m-0 overflow-y-auto">
       <div className="sidemenu-profile-section flex flex-col items-center justify-center pt-5 pb-4 mt-4">
         <div className="relative">
           <img
