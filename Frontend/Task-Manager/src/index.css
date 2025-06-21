@@ -2,7 +2,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Poppins", "sans-serif";
+  --font-display: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+    sans-serif;
   --breakpoint-3xl: 1920px;
 
   /* Primary Blue-Purple Gradient Colors */
@@ -54,18 +55,30 @@
   --color-surface-secondary: #2a1b5d;
   --color-surface-elevated: #3d2a7d;
   --color-surface-hover: #4c35a0;
+
+  /* Custom Border Widths */
+  --border-width-3: 3px;
 }
 
 @layer base {
   html {
     font-family: var(--font-display);
     scroll-behavior: smooth;
+    /* Firefox scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #6366f1 #1e1145;
   }
 
   body {
     background-color: #1e1145;
     color: #ffffff;
     overflow-x: hidden;
+  }
+
+  /* Enhanced focus visibility for accessibility */
+  *:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
   }
 }
 
@@ -87,6 +100,8 @@
 
 .navbar-button {
   @apply text-white hover:text-blue-300 transition-colors duration-200;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:ring-offset-2 focus:ring-offset-[#1E1145];
+  @apply rounded px-2 py-1;
 }
 
 /* === Side Menu Dark Mode === */
@@ -103,7 +118,7 @@
 }
 
 .sidemenu-profile-image {
-  @apply w-20 h-20 rounded-full border-3 border-blue-400/50;
+  @apply w-20 h-20 rounded-full border-4 border-blue-400/50;
   @apply shadow-lg shadow-blue-500/20;
 }
 
@@ -127,6 +142,8 @@
   @apply py-3 px-6 cursor-pointer transition-all duration-200;
   @apply hover:bg-gradient-to-r hover:from-blue-800/20 hover:to-purple-600/20;
   @apply border-l-4 border-transparent hover:border-blue-400;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:ring-inset;
+  @apply rounded-r;
 }
 
 .sidemenu-item-active {
@@ -153,6 +170,7 @@
   @apply bg-[#2A1B5D]/80 backdrop-blur-sm border-2 border-[#3D2A7D] text-white placeholder:text-gray-400;
   @apply focus:outline-none focus:border-[#4C35A0] focus:ring-2 focus:ring-[#4C35A0]/30;
   @apply hover:border-[#4C35A0]/60 hover:bg-[#2A1B5D];
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
@@ -174,8 +192,9 @@
 
 /* === Password Toggle Button === */
 .input-toggle-button {
-  @apply absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-400 focus:outline-none;
-  @apply transition-all duration-200 hover:scale-110;
+  @apply absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-400;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:ring-offset-1;
+  @apply transition-all duration-200 hover:scale-110 rounded p-1;
 }
 
 /* === Auth Headings === */
@@ -202,7 +221,7 @@
   @apply focus:outline-none focus:ring-2 focus:ring-purple-500/50;
   @apply focus:ring-offset-2 focus:ring-offset-[#1E1145];
   @apply shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/35;
-  @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none;
   @apply transform hover:scale-[1.02] active:scale-[0.98];
   position: relative;
   overflow: hidden;
@@ -224,7 +243,7 @@
   transition: left 0.5s;
 }
 
-.button-gradient:hover::before {
+.button-gradient:hover:not(:disabled)::before {
   left: 100%;
 }
 
@@ -236,11 +255,12 @@
   @apply hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/20;
   @apply rounded-lg transition-all duration-200;
   @apply focus:outline-none focus:ring-2 focus:ring-blue-400/50;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
 /* === Card Components === */
 .card {
-  @apply mx-2 sm:mx-0; /* New */
+  @apply mx-2 sm:mx-0;
   @apply bg-gradient-to-br from-[#2A1B5D]/90 to-[#3D2A7D]/80 p-6 rounded-2xl;
   @apply shadow-2xl shadow-purple-500/20 border border-[#4C35A0]/30;
   @apply backdrop-blur-sm;
@@ -271,12 +291,15 @@
   @apply px-4 py-1.5 rounded-lg border border-[#4C35A0]/30 hover:border-blue-400/50;
   @apply cursor-pointer transition-all duration-200;
   @apply backdrop-blur-sm hover:shadow-lg hover:shadow-blue-500/10;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-400/50;
 }
 
 /* === Auth Link === */
 .auth-link {
   @apply text-blue-400 hover:text-blue-300 font-medium transition-all duration-200;
   @apply hover:underline decoration-2 underline-offset-2;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:ring-offset-1;
+  @apply rounded px-1;
 }
 
 /* === Table Dark Mode === */
@@ -293,6 +316,7 @@
   @apply border-b border-[#4C35A0]/10;
   @apply hover:bg-gradient-to-r hover:from-blue-800/10 hover:to-purple-600/10;
   @apply transition-colors duration-200;
+  @apply focus-within:bg-gradient-to-r focus-within:from-blue-800/15 focus-within:to-purple-600/15;
 }
 
 .table-cell {
@@ -454,10 +478,6 @@
 }
 
 /* === Enhanced Card Mobile Styles === */
-.card {
-  @apply mx-2 sm:mx-0;
-}
-
 .card-mobile {
   @apply bg-gradient-to-br from-[#2A1B5D]/90 to-[#3D2A7D]/80 p-3 sm:p-6 rounded-xl sm:rounded-2xl;
   @apply shadow-lg sm:shadow-2xl shadow-purple-500/10 sm:shadow-purple-500/20 border border-[#4C35A0]/30;
@@ -572,5 +592,56 @@
 
   .sidemenu-item {
     @apply min-h-[48px] py-3;
+  }
+}
+
+/* === Animation Keyframes === */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Reduced Motion Support === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === High Contrast Mode Support === */
+@media (prefers-contrast: high) {
+  .button-gradient {
+    border: 2px solid currentColor;
+  }
+
+  .card,
+  .card-dark {
+    border-width: 2px;
+  }
+}
+
+/* === Print Styles === */
+@media print {
+  .navbar-dark,
+  .sidemenu-container,
+  .button-gradient,
+  .button-secondary {
+    display: none;
+  }
+
+  .dashboard-content {
+    box-shadow: none;
+    border: 1px solid #000;
   }
 }
