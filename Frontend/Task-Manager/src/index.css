@@ -166,6 +166,30 @@
   @apply p-6 m-5;
 }
 
+/* === Form Styles === */
+.form-card {
+  @apply bg-gradient-to-br from-[#2A1B5D]/90 to-[#3D2A7D]/80 p-6 rounded-xl;
+  @apply shadow-xl shadow-purple-500/20 border border-[#4C35A0]/30;
+  @apply backdrop-blur-sm;
+}
+
+.form-input {
+  @apply w-full text-sm text-white outline-none;
+  @apply bg-[#2A1B5D]/80 backdrop-blur-sm border-2 border-[#3D2A7D];
+  @apply px-4 py-3 rounded-lg mt-2 placeholder:text-gray-400;
+  @apply focus:outline-none focus:border-[#4C35A0] focus:ring-2 focus:ring-[#4C35A0]/30;
+  @apply hover:border-[#4C35A0]/60 hover:bg-[#2A1B5D];
+  @apply transition-all duration-300;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.form-input:focus {
+  box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.1),
+    0 4px 6px -2px rgba(99, 102, 241, 0.05);
+}
+
 /* === Input Base Styles === */
 .input-base {
   @apply w-full px-4 py-3 rounded-lg transition-all duration-300;
