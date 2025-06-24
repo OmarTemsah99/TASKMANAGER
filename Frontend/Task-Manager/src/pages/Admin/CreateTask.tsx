@@ -68,13 +68,13 @@ const CreateTask = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 mt-4">
           <div className="form-card col-span-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl md:text-xl font-medium">
+              <h2 className="text-xl md:text-xl font-medium text-white">
                 {taskId ? "Update Task" : "Create Task"}
               </h2>
 
               {taskId && (
                 <button
-                  className="flex items-center gap-1.5 text-[13px] font-medium text-rose-500 bg-rose-50 rounded px-2 py-1 border border-rose-100 hover:border-rose-300 cursor-pointer"
+                  className="flex items-center gap-1.5 text-[13px] font-medium text-red-300 bg-gradient-to-r from-red-800/20 to-red-700/20 rounded px-3 py-2 border border-red-600/30 hover:border-red-500/50 hover:bg-gradient-to-r hover:from-red-700/30 hover:to-red-600/30 cursor-pointer transition-all duration-200 backdrop-blur-sm shadow-lg shadow-red-500/10"
                   onClick={() => setOpenDeleteAlert(true)}>
                   <LuTrash2 className="text-base" /> Delete
                 </button>
@@ -99,7 +99,7 @@ const CreateTask = () => {
 
               <textarea
                 placeholder="Enter task description"
-                className="form-input"
+                className="form-input resize-none"
                 rows={4}
                 value={taskData.description}
                 onChange={({ target }) =>
@@ -124,14 +124,17 @@ const CreateTask = () => {
                 <label className="form-label">Due Date</label>
 
                 <input
-                  placeholder="Create App Ui"
-                  className="form-input"
+                  placeholder="Select due date"
+                  className="form-input cursor-pointer"
                   value={taskData.dueDate}
                   onChange={({ target }) =>
                     handleValueChange("dueDate", target.value)
                   }
                   type="date"
-                  style={{ colorScheme: "dark", cursor: "pointer" }}
+                  style={{
+                    colorScheme: "dark",
+                    cursor: "pointer",
+                  }}
                 />
               </div>
 

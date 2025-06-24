@@ -13,7 +13,7 @@ interface SelectUsersProps {
 
 const SelectUsers = ({ selectedUsers, setSelectedUsers }: SelectUsersProps) => {
   const [allUsers, setAllUsers] = useState<User[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [tempSelectedUsers, setTempSelectedUsers] = useState<string[]>([]);
 
   const getAllUsers = async () => {
@@ -53,9 +53,9 @@ const SelectUsers = ({ selectedUsers, setSelectedUsers }: SelectUsersProps) => {
   useEffect(() => {
     if (selectedUsers.length === 0) {
       setTempSelectedUsers([]);
+    } else {
+      setTempSelectedUsers(selectedUsers.map((user) => user._id));
     }
-
-    return () => {};
   }, [selectedUsers]);
 
   return (
@@ -83,16 +83,14 @@ const SelectUsers = ({ selectedUsers, setSelectedUsers }: SelectUsersProps) => {
           {allUsers.map((user) => (
             <div
               key={user._id}
-              className="flex items-center gap-4 p-3 border-b border-gray-200">
+              className="flex items-center gap-4 p-3 border-b border-[#4C35A0]/20 hover:bg-gradient-to-r hover:from-blue-800/10 hover:to-purple-600/10 transition-all duration-200 rounded-lg">
               <img
                 src={user.profileImageUrl}
                 alt={user.name}
-                className="w-10 h-10 rounded-full"
+                className="w-10 h-10 rounded-full border-2 border-[#4C35A0]/30 shadow-lg shadow-blue-500/20"
               />
               <div className="flex-1">
-                <p className="font-medium text-gray-800 dark:text-white">
-                  {user.name}
-                </p>
+                <p className="font-medium text-white">{user.name}</p>
                 <p className="text-[13px] text-gray-300">{user.email}</p>
               </div>
 
@@ -100,13 +98,13 @@ const SelectUsers = ({ selectedUsers, setSelectedUsers }: SelectUsersProps) => {
                 type="checkbox"
                 checked={tempSelectedUsers.includes(user._id)}
                 onChange={() => toggleUserSelection(user._id)}
-                className="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded-sm outline-none"
+                className="w-4 h-4 text-primary-600 bg-[#2A1B5D] border-[#4C35A0] rounded-sm outline-none focus:ring-2 focus:ring-blue-400/50 accent-blue-500"
               />
             </div>
           ))}
         </div>
 
-        <div className="flex justify-end gap-4 pt-4">
+        <div className="flex justify-end gap-4 pt-4 border-t border-[#4C35A0]/20 mt-4">
           <button className="card-btn" onClick={() => setIsModalOpen(false)}>
             CANCEL
           </button>
