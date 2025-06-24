@@ -6,6 +6,7 @@ import { PRIORITY_DATA } from "../../utils/data";
 import SelectDropdown from "../../components/ui/SelectDropdown";
 import SelectUsers from "../../components/ui/SelectUsers";
 import TodoListInput from "../../components/ui/TodoListInput";
+import AddAttachmentsInput from "../../components/ui/AddAttachmentsInput";
 
 const CreateTask = () => {
   const location = useLocation();
@@ -156,8 +157,19 @@ const CreateTask = () => {
 
               <TodoListInput
                 todoList={taskData?.todoChecklist}
-                setTodoList={(value: string[]) =>
+                setTodoList={(value) =>
                   handleValueChange("todoChecklist", value)
+                }
+              />
+            </div>
+
+            <div className="mt-3">
+              <label className="form-label">Add Attachments</label>
+
+              <AddAttachmentsInput
+                attachments={taskData?.attachments}
+                setAttachments={(value) =>
+                  handleValueChange("attachments", value)
                 }
               />
             </div>
