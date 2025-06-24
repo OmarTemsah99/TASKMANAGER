@@ -190,6 +190,10 @@
     0 4px 6px -2px rgba(99, 102, 241, 0.05);
 }
 
+.form-label {
+  @apply text-xs font-medium text-slate-300;
+}
+
 /* === Input Base Styles === */
 .input-base {
   @apply w-full px-4 py-3 rounded-lg transition-all duration-300;
@@ -317,6 +321,16 @@
   @apply px-4 py-1.5 rounded-lg border border-[#4C35A0]/30 hover:border-blue-400/50;
   @apply cursor-pointer transition-all duration-200;
   @apply backdrop-blur-sm hover:shadow-lg hover:shadow-blue-500/10;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-400/50;
+}
+
+.card-btn-fill {
+  @apply flex items-center gap-3 text-[12px] font-medium text-white;
+  @apply bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600;
+  @apply px-4 py-1.5 rounded-lg border border-blue-500/60 hover:border-blue-400/80;
+  @apply cursor-pointer transition-all duration-200;
+  @apply backdrop-blur-sm shadow-lg shadow-blue-500/10 hover:shadow-xl hover:shadow-purple-500/20;
+  @apply hover:bg-gradient-to-r hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700;
   @apply focus:outline-none focus:ring-2 focus:ring-blue-400/50;
 }
 

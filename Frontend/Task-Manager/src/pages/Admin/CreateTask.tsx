@@ -4,6 +4,7 @@ import { useState } from "react";
 import { LuTrash2 } from "react-icons/lu";
 import { PRIORITY_DATA } from "../../utils/data";
 import SelectDropdown from "../../components/ui/SelectDropdown";
+import SelectUsers from "../../components/ui/SelectUsers";
 
 const CreateTask = () => {
   const location = useLocation();
@@ -14,7 +15,7 @@ const CreateTask = () => {
     title: "",
     description: "",
     priority: "Low",
-    dueDate: null,
+    dueDate: "",
     assignedTo: [],
     todoChecklist: [],
     attachments: [],
@@ -40,7 +41,7 @@ const CreateTask = () => {
       title: "",
       description: "",
       priority: "Low",
-      dueDate: null,
+      dueDate: "",
       assignedTo: [],
       todoChecklist: [],
       attachments: [],
@@ -81,9 +82,7 @@ const CreateTask = () => {
             </div>
 
             <div className="mt-4">
-              <label className="text-xs font-medium text-slate-300">
-                Task Title
-              </label>
+              <label className="form-label">Task Title</label>
 
               <input
                 placeholder="Enter task title"
@@ -96,9 +95,7 @@ const CreateTask = () => {
             </div>
 
             <div className="mt-3">
-              <label className="text-xs font-medium text-slate-300">
-                Description
-              </label>
+              <label className="form-label">Description</label>
 
               <textarea
                 placeholder="Enter task description"
@@ -113,15 +110,39 @@ const CreateTask = () => {
 
             <div className="grid grid-cols-12 gap-4 mt-2">
               <div className="col-span-6 md:col-span-4">
-                <label className="text-xs font-medium text-slate-300">
-                  Priority
-                </label>
+                <label className="form-label">Priority</label>
 
                 <SelectDropdown
                   options={PRIORITY_DATA}
                   value={taskData.priority}
                   onChange={(value) => handleValueChange("priority", value)}
                   placeholder="Select Priority"
+                />
+              </div>
+
+              <div className="col-span-6 md:col-span-4">
+                <label className="form-label">Due Date</label>
+
+                <input
+                  placeholder="Create App Ui"
+                  className="form-input"
+                  value={taskData.dueDate}
+                  onChange={({ target }) =>
+                    handleValueChange("dueDate", target.value)
+                  }
+                  type="date"
+                  style={{ colorScheme: "dark", cursor: "pointer" }}
+                />
+              </div>
+
+              <div className="col-span-12 md:col-span-3">
+                <label className="form-label">Assign To</label>
+
+                <SelectUsers
+                  selectedUsers={taskData.assignedTo}
+                  setSelectedUsers={(value) => {
+                    handleValueChange("assignedTo", value);
+                  }}
                 />
               </div>
             </div>
