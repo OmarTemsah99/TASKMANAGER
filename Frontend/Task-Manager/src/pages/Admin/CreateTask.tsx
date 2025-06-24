@@ -10,6 +10,7 @@ import AddAttachmentsInput from "../../components/ui/AddAttachmentsInput";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import toast from "react-hot-toast";
+import type { User } from "../../types/user";
 
 const CreateTask = () => {
   const location = useLocation();
@@ -33,7 +34,20 @@ const CreateTask = () => {
 
   const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
 
-  const handleValueChange = (key, value) => {
+  type TaskData = {
+    title: string;
+    description: string;
+    priority: string;
+    dueDate: string;
+    assignedTo: User[]; // adjust type if you're using user objects
+    todoChecklist: string[];
+    attachments: string[]; // or string[] if using URLs
+  };
+
+  const handleValueChange = <K extends keyof TaskData>(
+    key: K,
+    value: TaskData[K]
+  ) => {
     setTaskData((prevData) => ({
       ...prevData,
       [key]: value,
