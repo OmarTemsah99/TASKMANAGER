@@ -25,7 +25,7 @@ interface DashboardData {
       All: number;
       Pending: number;
       InProgress: number;
-      Compeleted: number;
+      Completed: number;
     };
   };
   recentTasks: {
@@ -156,7 +156,7 @@ const Dashboard = () => {
               icon={<LuCheckCheck />}
               label="Completed"
               value={addThousandsSeparator(
-                dashboardData?.charts?.taskDistribution?.Compeleted || 0
+                dashboardData?.charts?.taskDistribution?.Completed || 0
               )}
               color="bg-lime-500"
             />
