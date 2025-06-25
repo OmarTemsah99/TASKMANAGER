@@ -56,11 +56,9 @@ const TaskCard = ({
 
   return (
     <div
-      className="card-dark cursor-pointer p-3 sm:p-4" // Responsive padding
+      className="card-dark cursor-pointer p-3 sm:p-4 transition-transform duration-200 hover:scale-[1.02] hover:shadow-xl shadow-blue-500/20 bg-gradient-to-br from-[#23235b]/80 to-[#2a1b5d]/90 backdrop-blur-md border border-[#4C35A0]/30 hover:border-blue-400/60 group"
       onClick={onClick}>
       <div className="flex flex-wrap items-center gap-2">
-        {" "}
-        {/* Wrap on small screens */}
         <div
           className={`text-[10px] sm:text-xs font-medium ${getStatusTagColor()} px-2 sm:px-3 py-1 rounded-full`}>
           {status}
@@ -70,7 +68,6 @@ const TaskCard = ({
           {priority} Priority
         </div>
       </div>
-
       <div
         className={`mt-3 sm:mt-4 pl-2 sm:pl-3 border-l-2 ${
           status === "In Progress"
@@ -93,7 +90,6 @@ const TaskCard = ({
         </p>
         <Progress progress={progress} status={status} />
       </div>
-
       <div className="mt-3 sm:mt-4">
         <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2 xs:gap-4">
           <div className="w-full xs:w-auto">
@@ -109,11 +105,12 @@ const TaskCard = ({
             </p>
           </div>
         </div>
-
         <div className="flex items-center justify-between mt-3">
           <AvatarGroup avatars={assignedTo || []} maxVisible={3} />
           {attachmentCount > 0 && (
-            <div className="flex items-center gap-1 sm:gap-2 bg-blue-500/20 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg">
+            <div
+              className="flex items-center gap-1 sm:gap-2 bg-blue-500/20 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg shadow-md hover:bg-blue-500/40 transition-colors duration-200 cursor-pointer"
+              title="View attachments">
               <LuPaperclip className="text-blue-300 text-sm sm:text-base" />
               <span className="text-xs text-blue-300">{attachmentCount}</span>
             </div>

@@ -80,11 +80,11 @@ const ManageTasks = () => {
       <div className="my-5">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-lg sm:text-xl font-medium text-nowrap">
+            <h2 className="text-lg sm:text-xl font-semibold text-white tracking-tight drop-shadow-md px-3 py-1.5 rounded-lg">
               My Tasks
             </h2>
             <button
-              className="flex lg:hidden download-btn text-xs sm:text-sm text-nowrap"
+              className="flex lg:hidden download-btn text-xs sm:text-sm text-nowrap shadow-md hover:scale-105 transition-transform duration-200"
               onClick={handleDownloadReport}>
               <LuFileSpreadsheet className="text-base sm:text-lg" />
               <span className="hidden xs:inline ml-1">Download Report</span>
@@ -94,7 +94,6 @@ const ManageTasks = () => {
           {tabs?.[0]?.count > 0 && (
             <div className="flex flex-col xs:flex-row xs:items-center gap-3">
               <div className="overflow-x-auto pb-1 scrollbar-hide">
-                {" "}
                 {/* Scrollable tabs */}
                 <TaskStatusTabs
                   tabs={tabs}
@@ -102,34 +101,43 @@ const ManageTasks = () => {
                   setActiveTab={setFilterStatus}
                 />
               </div>
-              <button
-                className="hidden lg:flex download-btn text-nowrap"
-                onClick={handleDownloadReport}>
-                <LuFileSpreadsheet className="text-lg" />
-                Download Report
-              </button>
             </div>
           )}
         </div>
 
-        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mt-3 sm:mt-4">
-          {allTasks?.map((item, index) => (
-            <TaskCard
-              key={item._id}
-              title={item.title}
-              description={item.description}
-              priority={item.priority}
-              status={item.status}
-              progress={item.progress ?? 0}
-              createdAt={item.createdAt ?? ""}
-              dueDate={item.dueDate ?? ""}
-              assignedTo={item.assignedTo?.map((u) => u.profileImageUrl) || []}
-              attachmentCount={item.attachments?.length || 0}
-              completedTodoCount={item.completedTodoCount || 0}
-              todoChecklist={item.todoChecklist || []}
-              onClick={() => handleClick(item)}
-            />
-          ))}
+        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mt-4 sm:mt-6">
+          {allTasks?.length === 0 ? (
+            <div className="col-span-full flex flex-col items-center justify-center py-16">
+              <img
+                src="/public/vite.svg"
+                alt="No tasks"
+                className="w-24 h-24 opacity-40 mb-4"
+              />
+              <p className="text-gray-400 text-lg font-medium">
+                No tasks found for this status.
+              </p>
+            </div>
+          ) : (
+            allTasks.map((item, index) => (
+              <TaskCard
+                key={item._id}
+                title={item.title}
+                description={item.description}
+                priority={item.priority}
+                status={item.status}
+                progress={item.progress ?? 0}
+                createdAt={item.createdAt ?? ""}
+                dueDate={item.dueDate ?? ""}
+                assignedTo={
+                  item.assignedTo?.map((u) => u.profileImageUrl) || []
+                }
+                attachmentCount={item.attachments?.length || 0}
+                completedTodoCount={item.completedTodoCount || 0}
+                todoChecklist={item.todoChecklist || []}
+                onClick={() => handleClick(item)}
+              />
+            ))
+          )}
         </div>
       </div>
     </DashboardLayout>
