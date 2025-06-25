@@ -16,9 +16,11 @@ const Progress = ({ progress, status }: ProgressProps) => {
   };
 
   return (
-    <div className="w-full bg-gray-700 rounded-full h-1.5">
+    <div className="w-full bg-gray-700 rounded-full h-1 sm:h-1.5">
+      {" "}
+      {/* Responsive height */}
       <div
-        className={`${getColor()} h-1.5 rounded-full`}
+        className={`${getColor()} h-1 sm:h-1.5 rounded-full`}
         style={{ width: `${progress}%` }}></div>
     </div>
   );

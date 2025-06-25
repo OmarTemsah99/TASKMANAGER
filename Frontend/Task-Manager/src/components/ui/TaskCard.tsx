@@ -55,30 +55,34 @@ const TaskCard = ({
   };
 
   return (
-    <div className="card-dark cursor-pointer p-4" onClick={onClick}>
-      <div className="flex items-end gap-3">
+    <div
+      className="card-dark cursor-pointer p-3 sm:p-4" // Responsive padding
+      onClick={onClick}>
+      <div className="flex flex-wrap items-center gap-2">
+        {" "}
+        {/* Wrap on small screens */}
         <div
-          className={`text-xs font-medium ${getStatusTagColor()} px-3 py-1 rounded-full`}>
+          className={`text-[10px] sm:text-xs font-medium ${getStatusTagColor()} px-2 sm:px-3 py-1 rounded-full`}>
           {status}
         </div>
         <div
-          className={`text-xs font-medium ${getPriorityTagColor()} px-3 py-1 rounded-full`}>
+          className={`text-[10px] sm:text-xs font-medium ${getPriorityTagColor()} px-2 sm:px-3 py-1 rounded-full`}>
           {priority} Priority
         </div>
       </div>
 
       <div
-        className={`mt-4 pl-3 border-l-2 ${
+        className={`mt-3 sm:mt-4 pl-2 sm:pl-3 border-l-2 ${
           status === "In Progress"
             ? "border-blue-500"
             : status === "Completed"
             ? "border-green-500"
             : "border-yellow-500"
         }`}>
-        <p className="text-sm font-medium text-gray-100 line-clamp-2">
+        <p className="text-sm sm:text-[0.9375rem] font-medium text-gray-100 line-clamp-2">
           {title}
         </p>
-        <p className="text-xs text-gray-400 mt-1.5 line-clamp-2 leading-[18px]">
+        <p className="text-xs text-gray-400 mt-1 sm:mt-1.5 line-clamp-2 leading-[18px]">
           {description}
         </p>
         <p className="text-xs text-gray-300 font-medium mt-2 mb-2 leading-[18px]">
@@ -90,15 +94,15 @@ const TaskCard = ({
         <Progress progress={progress} status={status} />
       </div>
 
-      <div className="mt-4">
-        <div className="flex items-center justify-between">
-          <div>
+      <div className="mt-3 sm:mt-4">
+        <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2 xs:gap-4">
+          <div className="w-full xs:w-auto">
             <label className="text-xs text-gray-500">Start Date</label>
             <p className="text-xs font-medium text-gray-200">
               {moment(createdAt).format("Do MMM YYYY")}
             </p>
           </div>
-          <div>
+          <div className="w-full xs:w-auto">
             <label className="text-xs text-gray-500">Due Date</label>
             <p className="text-xs font-medium text-gray-200">
               {moment(dueDate).format("Do MMM YYYY")}
@@ -109,8 +113,8 @@ const TaskCard = ({
         <div className="flex items-center justify-between mt-3">
           <AvatarGroup avatars={assignedTo || []} maxVisible={3} />
           {attachmentCount > 0 && (
-            <div className="flex items-center gap-2 bg-blue-500/20 px-2.5 py-1.5 rounded-lg">
-              <LuPaperclip className="text-blue-300" />
+            <div className="flex items-center gap-1 sm:gap-2 bg-blue-500/20 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg">
+              <LuPaperclip className="text-blue-300 text-sm sm:text-base" />
               <span className="text-xs text-blue-300">{attachmentCount}</span>
             </div>
           )}

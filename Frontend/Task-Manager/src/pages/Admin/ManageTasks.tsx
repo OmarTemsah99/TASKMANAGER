@@ -78,28 +78,32 @@ const ManageTasks = () => {
   return (
     <DashboardLayout activeMenu="Manage Tasks">
       <div className="my-5">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-xl font-medium">My Tasks</h2>
-
+            <h2 className="text-lg sm:text-xl font-medium text-nowrap">
+              My Tasks
+            </h2>
             <button
-              className="flex lg:hidden download-btn"
+              className="flex lg:hidden download-btn text-xs sm:text-sm text-nowrap"
               onClick={handleDownloadReport}>
-              <LuFileSpreadsheet className="text-lg" />
-              Download Report
+              <LuFileSpreadsheet className="text-base sm:text-lg" />
+              <span className="hidden xs:inline ml-1">Download Report</span>
             </button>
           </div>
 
           {tabs?.[0]?.count > 0 && (
-            <div className="flex items-center gap-3">
-              <TaskStatusTabs
-                tabs={tabs}
-                activeTab={filterStatus}
-                setActiveTab={setFilterStatus}
-              />
-
+            <div className="flex flex-col xs:flex-row xs:items-center gap-3">
+              <div className="overflow-x-auto pb-1 scrollbar-hide">
+                {" "}
+                {/* Scrollable tabs */}
+                <TaskStatusTabs
+                  tabs={tabs}
+                  activeTab={filterStatus}
+                  setActiveTab={setFilterStatus}
+                />
+              </div>
               <button
-                className="hidden lg:flex download-btn"
+                className="hidden lg:flex download-btn text-nowrap"
                 onClick={handleDownloadReport}>
                 <LuFileSpreadsheet className="text-lg" />
                 Download Report
@@ -108,7 +112,7 @@ const ManageTasks = () => {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mt-3 sm:mt-4">
           {allTasks?.map((item, index) => (
             <TaskCard
               key={item._id}
