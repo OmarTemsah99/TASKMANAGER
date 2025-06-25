@@ -91,7 +91,7 @@ const ManageTasks = () => {
           </div>
 
           {tabs?.[0]?.count > 0 && (
-            <div className="">
+            <div className="flex items-center gap-3">
               <TaskStatusTabs
                 tabs={tabs}
                 activeTab={filterStatus}
@@ -108,7 +108,7 @@ const ManageTasks = () => {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           {allTasks?.map((item, index) => (
             <TaskCard
               key={item._id}

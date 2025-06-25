@@ -7,20 +7,18 @@ const Progress = ({ progress, status }: ProgressProps) => {
   const getColor = () => {
     switch (status) {
       case "In Progress":
-        return "text-cyan-500 bg-cyan-50 border border-cyan-500/10";
-
+        return "bg-blue-400";
       case "Completed":
-        return "text-indigo-500 bg-indigo-50 border border-indigo-500/10";
-
-      default:
-        return "text-violet-500 bg-violet-50 border border-violet-500/10";
+        return "bg-green-400";
+      default: // Pending
+        return "bg-yellow-400";
     }
   };
 
   return (
-    <div className="w-full bg-gray-200 rounded-full h-1.5">
+    <div className="w-full bg-gray-700 rounded-full h-1.5">
       <div
-        className={`${getColor()} h-1.5 rounded-full text-center text-xs font-medium`}
+        className={`${getColor()} h-1.5 rounded-full`}
         style={{ width: `${progress}%` }}></div>
     </div>
   );
