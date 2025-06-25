@@ -39,9 +39,9 @@ const CreateTask = () => {
     description: string;
     priority: string;
     dueDate: string;
-    assignedTo: User[]; // adjust type if you're using user objects
+    assignedTo: User[];
     todoChecklist: string[];
-    attachments: string[]; // or string[] if using URLs
+    attachments: string[];
   };
 
   const handleValueChange = <K extends keyof TaskData>(

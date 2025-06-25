@@ -299,6 +299,16 @@
   @apply focus:outline-none focus:ring-2 focus:ring-[#4C35A0]/50;
 }
 
+.download-btn {
+  @apply inline-flex items-center gap-2 text-[12px] font-medium text-white;
+  @apply bg-gradient-to-r from-[#8b5cf6] via-[#7c3aed] to-[#6366f1];
+  @apply px-4 py-2 rounded-lg border border-[#4C35A0]/60 hover:border-[#4C35A0]/80;
+  @apply cursor-pointer transition-all duration-200;
+  @apply backdrop-blur-sm shadow-lg shadow-purple-500/10 hover:shadow-xl hover:shadow-purple-500/20;
+  @apply hover:bg-gradient-to-r hover:from-[#6d28d9] hover:via-[#5b21b6] hover:to-[#4338ca];
+  @apply focus:outline-none focus:ring-2 focus:ring-[#4C35A0]/50;
+}
+
 /* === Card Components === */
 .card {
   @apply mx-2 sm:mx-0;
