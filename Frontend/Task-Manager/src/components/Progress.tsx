@@ -56,11 +56,6 @@ const Progress = ({ progress, status }: ProgressProps) => {
           <div className="absolute right-1 top-1/2 transform -translate-y-1/2 w-1 h-1 bg-white/60 rounded-full animate-ping"></div>
         )}
       </div>
-
-      {/* Progress percentage tooltip on hover */}
-      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-        {Math.round(progress)}%
-      </div>
     </div>
   );
 };
