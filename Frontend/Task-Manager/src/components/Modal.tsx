@@ -11,7 +11,7 @@ const Modal = ({ children, isOpen, onClose, title }: ModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-center items-center">
+    <div className="modal-overlay fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-center items-center rounded-xl">
       <div className="relative p-4 w-full max-w-2xl max-h-full">
         {/* Modal content */}
         <div className="modal-container bg-gradient-to-br from-[#2A1B5D] to-[#3D2A7D] border border-[#4C35A0]/30 rounded-xl shadow-2xl shadow-purple-500/20">
