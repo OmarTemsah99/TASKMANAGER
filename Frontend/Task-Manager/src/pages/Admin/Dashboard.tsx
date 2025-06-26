@@ -109,7 +109,7 @@ const Dashboard = () => {
       <div className="card my-3 sm:my-5">
         <div className="card-header">
           <h2 className="card-title text-lg sm:text-xl md:text-2xl leading-tight">
-            Good Morning! {user?.name}
+            Welcome Back {user?.name}
           </h2>
           <p className="card-subtitle text-xs sm:text-sm mt-1 sm:mt-1.5">
             {moment().format("dddd Do MMM YYYY")}
@@ -117,7 +117,7 @@ const Dashboard = () => {
         </div>
 
         {/* Stats Grid - Mobile First Approach */}
-        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="mobile-dashboard-grid">
           <div className="col-span-1">
             <InfoCard
               icon={<LuClipboardList />}
@@ -185,9 +185,7 @@ const Dashboard = () => {
         <div className="card-header">
           <div className="flex items-center justify-between">
             <h5 className="card-title text-base sm:text-lg">Recent Tasks</h5>
-            <button
-              className="card-btn text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-1.5"
-              onClick={onSeeMore}>
+            <button className="card-btn" onClick={onSeeMore}>
               <span className="hidden xs:inline">See All</span>
               <span className="xs:hidden">All</span>
               <LuArrowRight className="text-sm sm:text-base ml-1" />

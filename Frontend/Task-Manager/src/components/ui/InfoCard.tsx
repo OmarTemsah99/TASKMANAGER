@@ -9,7 +9,7 @@ interface InfoCardProps {
 
 const InfoCard: FC<InfoCardProps> = ({ icon, label, value, color }) => {
   return (
-    <div className="bg-gradient-to-br from-[#2A1B5D]/60 to-[#3D2A7D]/40 p-3 sm:p-4 rounded-xl border border-[#4C35A0]/30 backdrop-blur-sm hover:from-[#2A1B5D]/80 hover:to-[#3D2A7D]/60 transition-all duration-200">
+    <div className="info-card-mobile">
       {/* Mobile Layout: Vertical Stack */}
       <div className="flex flex-col xs:flex-row items-start xs:items-center gap-2 xs:gap-3">
         {/* Icon and Color Indicator */}

@@ -41,7 +41,7 @@ const TaskListTable = ({ tableData }: TaskListTableProps) => {
 
   // Mobile card view for small screens
   const MobileTaskCard = ({ task }: { task: Task }) => (
-    <div className="bg-[#2A1B5D]/40 border border-[#4C35A0]/20 rounded-lg p-4 mb-3 backdrop-blur-sm">
+    <div className="task-card-mobile">
       <div className="flex justify-between items-start mb-3">
         <h3 className="text-white font-medium text-sm leading-tight flex-1 mr-2">
           {task.title}
