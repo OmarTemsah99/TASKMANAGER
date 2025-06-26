@@ -668,6 +668,36 @@
   }
 }
 
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scale-102 {
+  transform: scale(1.02);
+}
+
+.border-l-3 {
+  border-left-width: 3px;
+}
+
 /* === Reduced Motion Support === */
 @media (prefers-reduced-motion: reduce) {
   *,
