@@ -38,17 +38,17 @@ const UserCard = ({ userInfo }: UserCardProps) => {
       <div className="flex flex-wrap gap-2 mt-3">
         <StatCard
           label="Pending"
-          count={userInfo.pendingTasks || 0}
+          count={userInfo?.pendingTasks || 0}
           status="Pending"
         />
         <StatCard
           label="In Progress"
-          count={userInfo.inProgressTasks || 0}
+          count={userInfo?.inProgressTasks || 0}
           status="In Progress"
         />
         <StatCard
           label="Completed"
-          count={userInfo.completedTasks || 0}
+          count={userInfo?.completedTasks || 0}
           status="Completed"
         />
       </div>
