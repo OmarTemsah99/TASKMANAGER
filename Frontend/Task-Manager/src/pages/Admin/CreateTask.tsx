@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LuTrash2 } from "react-icons/lu";
 import { PRIORITY_DATA } from "../../utils/data";
 import SelectDropdown from "../../components/ui/SelectDropdown";
@@ -11,6 +11,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import toast from "react-hot-toast";
 import type { User } from "../../types/user";
+import moment from "moment";
 
 const CreateTask = () => {
   const location = useLocation();
@@ -27,7 +28,12 @@ const CreateTask = () => {
     attachments: [],
   });
 
-  const [currentTask, setCurrentTask] = useState(null);
+  // Add Task type for currentTask
+  interface Task {
+    todoChecklist?: { text: string; completed: boolean }[];
+  }
+
+  const [currentTask, setCurrentTask] = useState<Task | null>(null);
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -95,7 +101,38 @@ const CreateTask = () => {
   };
 
   // Update Task
-  const updateTask = async () => {};
+  const updateTask = async (taskId: string) => {
+    setLoading(true);
+    try {
+      const todolist = taskData.todoChecklist?.map((item) => {
+        const prevTodoChecklist = currentTask?.todoChecklist || [];
+        const matchedTask = prevTodoChecklist.find((task: { text: string; completed: boolean }) => task.text === item);
+        return {
+          text: item,
+          completed: matchedTask ? matchedTask.completed : false,
+        };
+      });
+      const assignedToIds = (taskData.assignedTo as User[]).map((user) => {
+        if (typeof user === 'string') return user;
+        return (user as User)._id;
+      });
+      await axiosInstance.put(
+        API_PATHS.TASKS.UPDATE_TASK(taskId),
+        {
+          ...taskData,
+          assignedTo: assignedToIds,
+          dueDate: new Date(taskData.dueDate).toISOString(),
+          todoChecklist: todolist,
+        }
+      );
+      toast.success("Task Updated Succesfully");
+    } catch (error) {
+      console.error("Error Updating Task: ", error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async () => {
     setError("");
@@ -127,7 +164,7 @@ const CreateTask = () => {
     }
 
     if (taskId) {
-      updateTask();
+      updateTask(taskId);
       return;
     }
 
@@ -135,10 +172,45 @@ const CreateTask = () => {
   };
 
   // get Task info by ID
-  const getTaskDetailsByID = async () => {};
+  const getTaskDetailsByID = async (taskId: string) => {
+    try {
+      const response = await axiosInstance.get(
+        API_PATHS.TASKS.GET_TASK_BY_ID(taskId)
+      );
+      if (response.data) {
+        const taskInfo = response.data;
+        setCurrentTask(taskInfo);
+        setTaskData({
+          title: taskInfo.title || "",
+          description: taskInfo.description || "",
+          priority: taskInfo.priority || "Low",
+          dueDate: taskInfo.dueDate
+            ? moment(taskInfo.dueDate).format("YYYY-MM-DD")
+            : "",
+          assignedTo: taskInfo?.assignedTo || [],
+          todoChecklist:
+            taskInfo?.todoChecklist?.map(
+              (item: { text: string }) => item?.text
+            ) || [],
+          attachments: taskInfo?.attachments || [],
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching task details:", error);
+      setError("Failed to fetch task details. Please try again.");
+    }
+  };
 
   // Delete Task
   const handleDeleteTask = async () => {};
+
+  useEffect(() => {
+    if (taskId) {
+      getTaskDetailsByID(taskId);
+    }
+
+    return () => {};
+  }, [taskId]);
 
   return (
     <DashboardLayout activeMenu="Create Task">
