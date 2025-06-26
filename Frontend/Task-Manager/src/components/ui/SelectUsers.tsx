@@ -5,7 +5,7 @@ import { API_PATHS } from "../../utils/apiPaths";
 import { LuUsers } from "react-icons/lu";
 import Modal from "../Modal";
 import AvatarGroup from "../AvatarGroup";
-import { IoPersonCircle } from "react-icons/io5";
+import { IoPersonCircleOutline } from "react-icons/io5";
 
 interface SelectUsersProps {
   selectedUsers: User[];
@@ -92,7 +92,7 @@ const SelectUsers = ({ selectedUsers, setSelectedUsers }: SelectUsersProps) => {
                   className="w-10 h-10 rounded-full border-2 border-[#4C35A0]/30 shadow-lg shadow-blue-500/20"
                 />
               ) : (
-                <IoPersonCircle className="w-10 h-10 text-gray-400 bg-[#2A1B5D] rounded-full border-2 border-[#4C35A0]/30 shadow-lg shadow-blue-500/20" />
+                <IoPersonCircleOutline className="w-10 h-10 text-white bg-[#2A1B5D] rounded-full border-2 border-[#4C35A0]/30 shadow-lg shadow-blue-500/20" />
               )}
               <div className="flex-1">
                 <p className="font-medium text-white">{user.name}</p>
