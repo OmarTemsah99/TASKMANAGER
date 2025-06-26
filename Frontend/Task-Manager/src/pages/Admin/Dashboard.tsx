@@ -51,26 +51,23 @@ const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(
     null
   );
-
   const [pieChartData, setPieChartData] = useState<ChartItem[]>([]);
   const [barChartData, setBarChartData] = useState<PriorityItem[]>([]);
 
-  // Prepare Chart Data
   const prepareChartData = (data: {
     taskDistribution?: Record<string, number>;
     taskPriorityLevels?: Record<string, number>;
   }) => {
-    const { taskDistribution = {}, taskPriorityLevels = {} } = data || {};
+    const { taskDistribution = {}, taskPriorityLevels = {} } = data;
 
-    const statusKeys = ["Pending", "In Progress", "Completed"];
-    const priorityKeys = ["Low", "Medium", "High"];
+    const taskDistributionData = ["Pending", "In Progress", "Completed"].map(
+      (status) => ({
+        status,
+        count: taskDistribution[status] || 0,
+      })
+    );
 
-    const taskDistributionData = statusKeys.map((status) => ({
-      status,
-      count: taskDistribution[status] || 0,
-    }));
-
-    const priorityLevelData = priorityKeys.map((priority) => ({
+    const priorityLevelData = ["Low", "Medium", "High"].map((priority) => ({
       priority,
       count: taskPriorityLevels[priority] || 0,
     }));
@@ -79,9 +76,7 @@ const Dashboard = () => {
     setBarChartData(priorityLevelData);
   };
 
-  const onSeeMore = () => {
-    navigate("/admin/tasks");
-  };
+  const onSeeMore = () => navigate("/admin/tasks");
 
   const getDashboardData = useCallback(async () => {
     try {
@@ -93,111 +88,93 @@ const Dashboard = () => {
         prepareChartData(response.data?.charts || {});
       }
     } catch (error) {
-      console.error("Error fetch users: ", error);
+      console.error("Error fetching dashboard data: ", error);
     }
-  }, []); // no dependencies
+  }, []);
 
   useEffect(() => {
     getDashboardData();
-
-    return () => {};
   }, [getDashboardData]);
 
   return (
     <DashboardLayout activeMenu="Dashboard">
-      {/* Welcome Card - Mobile Optimized */}
-      <div className="card my-3 sm:my-5">
+      {/* Welcome Section */}
+      <div className="card my-5">
         <div className="card-header">
-          <h2 className="card-title text-lg sm:text-xl md:text-2xl leading-tight">
-            Welcome Back {user?.name}
+          <h2 className="card-title text-xl md:text-2xl">
+            Welcome Back, {user?.name}
           </h2>
-          <p className="card-subtitle text-xs sm:text-sm mt-1 sm:mt-1.5">
+          <p className="card-subtitle mt-1.5 text-sm">
             {moment().format("dddd Do MMM YYYY")}
           </p>
         </div>
 
-        {/* Stats Grid - Mobile First Approach */}
+        {/* Info Cards */}
         <div className="mobile-dashboard-grid">
-          <div className="col-span-1">
-            <InfoCard
-              icon={<LuClipboardList />}
-              label="Total Tasks"
-              value={addThousandsSeparator(
-                dashboardData?.charts?.taskDistribution?.All || 0
-              )}
-              color="bg-primary"
-            />
-          </div>
-
-          <div className="col-span-1">
-            <InfoCard
-              icon={<LuClock />}
-              label="Pending Tasks"
-              value={addThousandsSeparator(
-                dashboardData?.charts?.taskDistribution?.Pending || 0
-              )}
-              color="bg-yellow-500"
-            />
-          </div>
-
-          <div className="col-span-1">
-            <InfoCard
-              icon={<LuPlay />}
-              label="In Progress"
-              value={addThousandsSeparator(
-                dashboardData?.charts?.taskDistribution?.InProgress || 0
-              )}
-              color="bg-cyan-500"
-            />
-          </div>
-
-          <div className="col-span-1">
-            <InfoCard
-              icon={<LuCheckCheck />}
-              label="Completed"
-              value={addThousandsSeparator(
-                dashboardData?.charts?.taskDistribution?.Completed || 0
-              )}
-              color="bg-lime-500"
-            />
-          </div>
+          <InfoCard
+            icon={<LuClipboardList />}
+            label="Total Tasks"
+            value={addThousandsSeparator(
+              dashboardData?.charts?.taskDistribution?.All || 0
+            )}
+            color="bg-primary"
+          />
+          <InfoCard
+            icon={<LuClock />}
+            label="Pending Tasks"
+            value={addThousandsSeparator(
+              dashboardData?.charts?.taskDistribution?.Pending || 0
+            )}
+            color="bg-yellow-500"
+          />
+          <InfoCard
+            icon={<LuPlay />}
+            label="In Progress"
+            value={addThousandsSeparator(
+              dashboardData?.charts?.taskDistribution?.InProgress || 0
+            )}
+            color="bg-cyan-500"
+          />
+          <InfoCard
+            icon={<LuCheckCheck />}
+            label="Completed"
+            value={addThousandsSeparator(
+              dashboardData?.charts?.taskDistribution?.Completed || 0
+            )}
+            color="bg-lime-500"
+          />
         </div>
       </div>
 
-      {/* Charts Section - Responsive Side by Side on Large Screens */}
-      <div className="mb-5 flex flex-col lg:flex-row gap-5">
+      {/* Chart Section */}
+      <div className="flex flex-col lg:flex-row gap-5 mb-5">
         <div className="card w-full lg:w-1/2">
-          <div className="flex items-center justify-between">
-            <h5 className="font-medium">Task Distribution</h5>
+          <div className="card-header">
+            <h5 className="card-title">Task Distribution</h5>
           </div>
           <CustomPieChart data={pieChartData} color={COLORS} />
         </div>
         <div className="card w-full lg:w-1/2">
-          <div className="flex items-center justify-between">
-            <h5 className="font-medium">Task Priority Levels</h5>
+          <div className="card-header">
+            <h5 className="card-title">Task Priority Levels</h5>
           </div>
           <CustomBarChart data={barChartData} />
         </div>
       </div>
 
-      {/* Recent Tasks Section - Mobile Optimized */}
-      <div className="card mb-3 sm:mb-5">
-        <div className="card-header">
-          <div className="flex items-center justify-between">
-            <h5 className="card-title text-base sm:text-lg">Recent Tasks</h5>
-            <button className="card-btn" onClick={onSeeMore}>
-              <span className="hidden xs:inline">See All</span>
-              <span className="xs:hidden">All</span>
-              <LuArrowRight className="text-sm sm:text-base ml-1" />
-            </button>
-          </div>
+      {/* Recent Tasks Table */}
+      <div className="card">
+        <div className="card-header flex justify-between items-center">
+          <h5 className="card-title text-lg">Recent Tasks</h5>
+          <button className="card-btn" onClick={onSeeMore}>
+            <span className="hidden xs:inline">See All</span>
+            <span className="xs:hidden">All</span>
+            <LuArrowRight className="ml-2" />
+          </button>
         </div>
 
-        {/* Mobile-optimized table container */}
-        <div className="overflow-x-auto -mx-2 sm:mx-0">
-          <div className="inline-block min-w-full align-middle">
-            <TaskListTable tableData={dashboardData?.recentTasks || []} />
-          </div>
+        <div className="table-mobile-scroll">
+          <TaskListTable tableData={dashboardData?.recentTasks || []} />
         </div>
       </div>
     </DashboardLayout>

@@ -4,30 +4,25 @@ interface InfoCardProps {
   icon: ReactNode;
   label: string;
   value: string | number;
-  color: string;
+  color: string; // Ex: 'bg-cyan-500'
 }
 
 const InfoCard: FC<InfoCardProps> = ({ icon, label, value, color }) => {
   return (
-    <div className="info-card-mobile">
-      {/* Mobile Layout: Vertical Stack */}
-      <div className="flex flex-col xs:flex-row items-start xs:items-center gap-2 xs:gap-3">
-        {/* Icon and Color Indicator */}
-        <div className="flex items-center gap-2 xs:gap-3">
-          <div
-            className={`w-1 xs:w-2 h-8 xs:h-10 sm:h-12 ${color} rounded-full`}
-          />
-          <div className="text-white text-lg xs:text-xl sm:text-2xl">
-            {icon}
-          </div>
+    <div className="rounded-xl p-4 sm:p-5 backdrop-blur-md bg-white/5 border border-white/10 shadow-lg hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.015]">
+      <div className="flex items-center gap-4">
+        {/* Icon Indicator */}
+        <div className="flex items-center gap-3">
+          <div className={`w-1.5 h-10 ${color} rounded-full`} />
+          <div className="text-2xl text-white">{icon}</div>
         </div>
 
-        {/* Content */}
+        {/* Text */}
         <div className="flex-1 min-w-0">
-          <div className="text-lg xs:text-xl sm:text-2xl font-bold text-white leading-tight">
+          <div className="text-white text-lg sm:text-xl font-semibold truncate">
             {value}
           </div>
-          <p className="text-xs xs:text-sm text-gray-300 leading-tight mt-0.5">
+          <p className="text-xs sm:text-sm text-gray-300 mt-0.5 truncate">
             {label}
           </p>
         </div>

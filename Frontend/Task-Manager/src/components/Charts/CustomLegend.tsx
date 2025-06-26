@@ -4,17 +4,15 @@ const CustomLegend = ({ payload }: LegendProps) => {
   if (!payload || !payload.length) return null;
 
   return (
-    <div className="flex flex-wrap justify-center gap-2 mt-4 space-x-6">
+    <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 mt-5 px-2">
       {payload.map((entry, index) => (
         <div
           key={`legend-item-${index}`}
-          className="flex items-center space-x-2">
+          className="flex items-center gap-2 text-sm font-medium text-gray-300">
           <span
-            className="w-4 h-4 rounded-full"
+            className="w-3.5 h-3.5 rounded-full shadow-sm"
             style={{ backgroundColor: entry.color }}></span>
-          <span className="text-sm text-gray-300 font-medium">
-            {entry.value}
-          </span>
+          <span className="truncate max-w-[100px]">{entry.value}</span>
         </div>
       ))}
     </div>
