@@ -301,7 +301,7 @@ const CreateTask = () => {
           {/* Submit Button */}
           <div className="flex justify-end mt-7">
             <button
-              className="add-btn"
+              className="button-gradient relative"
               onClick={handleSubmit}
               disabled={loading}>
               {taskId ? "UPDATE TASK" : "CREATE TASK"}

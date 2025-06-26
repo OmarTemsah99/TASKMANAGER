@@ -29,7 +29,7 @@ interface Task {
   todoChecklist: { text: string; completed: boolean }[];
 }
 
-const priorityOrder = { "High": 3, "Medium": 2, "Low": 1 };
+const priorityOrder = { High: 3, Medium: 2, Low: 1 };
 
 const ManageTasks = () => {
   const [allTasks, setAllTasks] = useState<Task[]>([]);
@@ -40,7 +40,9 @@ const ManageTasks = () => {
   const [sortBy, setSortBy] = useState("createdAt");
   const [isLoading, setIsLoading] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
-  const [activeQuickFilter, setActiveQuickFilter] = useState<string | null>(null);
+  const [activeQuickFilter, setActiveQuickFilter] = useState<string | null>(
+    null
+  );
 
   const navigate = useNavigate();
 
@@ -92,20 +94,20 @@ const ManageTasks = () => {
     if (activeQuickFilter) {
       const today = new Date();
       today.setHours(23, 59, 59, 999); // End of today
-      
+
       switch (activeQuickFilter) {
         case "high-priority":
-          filtered = filtered.filter(task => task.priority === "High");
+          filtered = filtered.filter((task) => task.priority === "High");
           break;
         case "due-today":
-          filtered = filtered.filter(task => {
+          filtered = filtered.filter((task) => {
             if (!task.dueDate) return false;
             const dueDate = new Date(task.dueDate);
             return dueDate.toDateString() === today.toDateString();
           });
           break;
         case "overdue":
-          filtered = filtered.filter(task => {
+          filtered = filtered.filter((task) => {
             if (!task.dueDate) return false;
             const dueDate = new Date(task.dueDate);
             return dueDate < today && task.status !== "Completed";
@@ -113,7 +115,7 @@ const ManageTasks = () => {
           break;
         case "assigned-to-me":
           // This would need user context - for now, just filter incomplete tasks
-          filtered = filtered.filter(task => task.status !== "Completed");
+          filtered = filtered.filter((task) => task.status !== "Completed");
           break;
       }
     }
@@ -124,14 +126,22 @@ const ManageTasks = () => {
         case "title":
           return a.title.localeCompare(b.title);
         case "priority":
-          return (priorityOrder[b.priority as keyof typeof priorityOrder] || 0) - 
-                 (priorityOrder[a.priority as keyof typeof priorityOrder] || 0);
+          return (
+            (priorityOrder[b.priority as keyof typeof priorityOrder] || 0) -
+            (priorityOrder[a.priority as keyof typeof priorityOrder] || 0)
+          );
         case "dueDate":
-          return new Date(a.dueDate || 0).getTime() - new Date(b.dueDate || 0).getTime();
+          return (
+            new Date(a.dueDate || 0).getTime() -
+            new Date(b.dueDate || 0).getTime()
+          );
         case "progress":
           return (b.progress || 0) - (a.progress || 0);
         default: // createdAt
-          return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
+          return (
+            new Date(b.createdAt || 0).getTime() -
+            new Date(a.createdAt || 0).getTime()
+          );
       }
     });
 
@@ -154,11 +164,16 @@ const ManageTasks = () => {
 
   const getActiveFilterLabel = () => {
     switch (activeQuickFilter) {
-      case 'high-priority': return 'High Priority';
-      case 'due-today': return 'Due Today';
-      case 'overdue': return 'Overdue';
-      case 'assigned-to-me': return 'Active Tasks';
-      default: return '';
+      case "high-priority":
+        return "High Priority";
+      case "due-today":
+        return "Due Today";
+      case "overdue":
+        return "Overdue";
+      case "assigned-to-me":
+        return "Active Tasks";
+      default:
+        return "";
     }
   };
 
@@ -197,16 +212,14 @@ const ManageTasks = () => {
 
             <div className="flex items-center gap-3">
               <button
-                className="card-btn-fill touch-friendly"
-                onClick={handleCreateTask}
-              >
+                className="card-btn touch-friendly"
+                onClick={handleCreateTask}>
                 <LuPlus className="text-base" />
                 <span className="hidden sm:inline">New Task</span>
               </button>
               <button
                 className="card-btn touch-friendly"
-                onClick={handleDownloadReport}
-              >
+                onClick={handleDownloadReport}>
                 <LuFileSpreadsheet className="text-base" />
                 <span className="hidden sm:inline">Export</span>
               </button>
@@ -233,17 +246,15 @@ const ManageTasks = () => {
             <div className="flex items-center gap-3">
               <button
                 className="card-btn touch-friendly"
-                onClick={() => setShowFilters(!showFilters)}
-              >
+                onClick={() => setShowFilters(!showFilters)}>
                 <LuFilter className="text-base" />
                 <span className="hidden sm:inline">Filters</span>
               </button>
-              
+
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="input-base text-sm min-w-[120px]"
-              >
+                className="input-base text-sm min-w-[120px]">
                 <option value="createdAt">Latest</option>
                 <option value="title">Title</option>
                 <option value="priority">Priority</option>
@@ -257,52 +268,49 @@ const ManageTasks = () => {
           {showFilters && (
             <div className="mt-4 pt-4 border-t border-[#4C35A0]/20">
               <div className="flex flex-wrap gap-2">
-                <span className="text-sm text-gray-300 mr-2">Quick filters:</span>
-                <button 
+                <span className="text-sm text-gray-300 mr-2">
+                  Quick filters:
+                </span>
+                <button
                   className={`text-xs ${
-                    activeQuickFilter === 'high-priority' 
-                      ? 'card-btn-fill' 
-                      : 'card-btn'
+                    activeQuickFilter === "high-priority"
+                      ? "card-btn-fill"
+                      : "card-btn"
                   }`}
-                  onClick={() => handleQuickFilter('high-priority')}
-                >
+                  onClick={() => handleQuickFilter("high-priority")}>
                   High Priority
                 </button>
-                <button 
+                <button
                   className={`text-xs ${
-                    activeQuickFilter === 'due-today' 
-                      ? 'card-btn-fill' 
-                      : 'card-btn'
+                    activeQuickFilter === "due-today"
+                      ? "card-btn-fill"
+                      : "card-btn"
                   }`}
-                  onClick={() => handleQuickFilter('due-today')}
-                >
+                  onClick={() => handleQuickFilter("due-today")}>
                   Due Today
                 </button>
-                <button 
+                <button
                   className={`text-xs ${
-                    activeQuickFilter === 'overdue' 
-                      ? 'card-btn-fill' 
-                      : 'card-btn'
+                    activeQuickFilter === "overdue"
+                      ? "card-btn-fill"
+                      : "card-btn"
                   }`}
-                  onClick={() => handleQuickFilter('overdue')}
-                >
+                  onClick={() => handleQuickFilter("overdue")}>
                   Overdue
                 </button>
-                <button 
+                <button
                   className={`text-xs ${
-                    activeQuickFilter === 'assigned-to-me' 
-                      ? 'card-btn-fill' 
-                      : 'card-btn'
+                    activeQuickFilter === "assigned-to-me"
+                      ? "card-btn-fill"
+                      : "card-btn"
                   }`}
-                  onClick={() => handleQuickFilter('assigned-to-me')}
-                >
+                  onClick={() => handleQuickFilter("assigned-to-me")}>
                   Active Tasks
                 </button>
                 {activeQuickFilter && (
-                  <button 
+                  <button
                     className="text-xs card-btn text-red-300 hover:text-red-200"
-                    onClick={() => setActiveQuickFilter(null)}
-                  >
+                    onClick={() => setActiveQuickFilter(null)}>
                     Clear Filter
                   </button>
                 )}
@@ -342,15 +350,14 @@ const ManageTasks = () => {
                     {searchTerm ? "No matching tasks found" : "No tasks found"}
                   </h3>
                   <p className="text-gray-400 mb-6">
-                    {searchTerm 
-                      ? "Try adjusting your search criteria" 
+                    {searchTerm
+                      ? "Try adjusting your search criteria"
                       : "Get started by creating your first task"}
                   </p>
                   {!searchTerm && (
                     <button
                       className="button-gradient"
-                      onClick={handleCreateTask}
-                    >
+                      onClick={handleCreateTask}>
                       <LuPlus className="inline mr-2" />
                       Create First Task
                     </button>
