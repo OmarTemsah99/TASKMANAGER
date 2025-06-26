@@ -309,6 +309,13 @@
   @apply focus:outline-none focus:ring-2 focus:ring-[#4C35A0]/50;
 }
 
+.delete-btn {
+  @apply flex items-center gap-1.5 text-[13px] font-medium;
+  @apply text-red-300 bg-gradient-to-r from-red-800/20 to-red-700/20 rounded px-3 py-2 border border-red-600/30;
+  @apply hover:border-red-500/50 hover:bg-gradient-to-r hover:from-red-700/30 hover:to-red-600/30;
+  @apply cursor-pointer transition-all duration-200 backdrop-blur-sm shadow-lg shadow-red-500/10;
+}
+
 /* === Card Components === */
 .card {
   @apply mx-2 sm:mx-0;
