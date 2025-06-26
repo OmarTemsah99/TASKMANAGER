@@ -4,4 +4,7 @@ export interface User {
   email: string;
   role: "admin" | "user";
   profileImageUrl: string;
+  pendingTasks: number;
+  inProgressTasks: number;
+  completedTasks: number;
 }

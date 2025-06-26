@@ -5,7 +5,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { LuFileSpreadsheet, LuPlus, LuSearch, LuFilter } from "react-icons/lu";
 import TaskStatusTabs from "../../components/TaskStatusTabs";
-import TaskCard from "../../components/ui/TaskCard";
+import TaskCard from "../../components/Cards/TaskCard";
 
 interface TabItem {
   label: string;

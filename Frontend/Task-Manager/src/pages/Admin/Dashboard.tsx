@@ -13,7 +13,7 @@ import {
   LuArrowRight,
   LuCheckCheck,
 } from "react-icons/lu";
-import InfoCard from "../../components/ui/InfoCard";
+import InfoCard from "../../components/Cards/InfoCard";
 import { addThousandsSeparator } from "../../utils/helper";
 import TaskListTable from "../../components/TaskListTable";
 import CustomPieChart from "../../components/Charts/CustomPieChart";
