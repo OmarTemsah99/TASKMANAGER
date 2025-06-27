@@ -35,7 +35,43 @@
   <em>Click above to watch a full demonstration of the TaskManager application</em>
 </div>
 
+## 📸 Screenshots
+
+<div align="center">
+  <img src="screenshots/dashboard.png" alt="Dashboard" width="45%" />
+  <img src="screenshots/tasks.png" alt="Task Management" width="45%" />
+  <br />
+  <em>Dashboard Overview & Task Management Interface</em>
+</div>
+
 ---
+
+## 🔑 Key Highlights
+
+<div align="center">
+  <table>
+    <tr>
+      <td>🏗️ <strong>Full-Stack Architecture</strong></td>
+      <td>Complete MERN stack implementation with TypeScript</td>
+    </tr>
+    <tr>
+      <td>🔒 <strong>Enterprise Security</strong></td>
+      <td>JWT authentication with role-based access control</td>
+    </tr>
+    <tr>
+      <td>📱 <strong>Responsive Design</strong></td>
+      <td>Mobile-first approach with Tailwind CSS</td>
+    </tr>
+    <tr>
+      <td>📊 <strong>Data Analytics</strong></td>
+      <td>Interactive charts and Excel export functionality</td>
+    </tr>
+    <tr>
+      <td>⚡ <strong>Real-time Updates</strong></td>
+      <td>Live task status and progress tracking</td>
+    </tr>
+  </table>
+</div>
 
 ## ✨ Features
 
@@ -123,10 +159,12 @@
 
 ### Prerequisites
 <div>
-  <img src="https://img.shields.io/badge/Node.js-v22+-43853D?style=flat&logo=node.js&logoColor=white" alt="Node.js" />
-  <img src="https://img.shields.io/badge/MongoDB-v8+-4EA94B?style=flat&logo=mongodb&logoColor=white" alt="MongoDB" />
-  <img src="https://img.shields.io/badge/npm-v10+-CB3837?style=flat&logo=npm&logoColor=white" alt="npm" />
+  <img src="https://img.shields.io/badge/Node.js-v18+-43853D?style=flat&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/MongoDB-v5+-4EA94B?style=flat&logo=mongodb&logoColor=white" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/npm-v8+-CB3837?style=flat&logo=npm&logoColor=white" alt="npm" />
 </div>
+
+> **Note**: Make sure you have MongoDB running locally or have a MongoDB Atlas connection string ready.
 
 ### Installation
 
@@ -152,29 +190,79 @@
    
    Create `.env` file in the backend directory:
    ```env
+   # Database
    MONGODB_URI=mongodb://localhost:27017/taskmanager
-   JWT_SECRET=your_jwt_secret_key
+   # Or use MongoDB Atlas: mongodb+srv://username:password@cluster.mongodb.net/taskmanager
+   
+   # Authentication
+   JWT_SECRET=your_super_secure_jwt_secret_key_here
+   JWT_EXPIRES_IN=7d
+   
+   # Server Configuration
    NODE_ENV=development
    PORT=5000
+   
+   # File Upload (optional)
+   MAX_FILE_SIZE=5242880  # 5MB
    ```
 
 5. **Start the Application**
    
-   **Backend:**
+   **Option 1: Run separately**
    ```bash
+   # Terminal 1 - Backend
    cd backend
+   npm run dev  # or npm start
+   
+   # Terminal 2 - Frontend
+   cd frontend
    npm start
    ```
    
-   **Frontend:**
+   **Option 2: Run concurrently (if configured)**
    ```bash
-   cd frontend
-   npm start
+   npm run dev  # Runs both frontend and backend
    ```
 
 <div align="center">
   <h4>🎉 Your application will be running at <code>http://localhost:3000</code></h4>
+  <p>Backend API will be available at <code>http://localhost:5000</code></p>
 </div>
+
+## 🏗️ API Endpoints
+
+<details>
+<summary><strong>🔍 View API Documentation</strong></summary>
+
+### Authentication
+```http
+POST /api/auth/register    # Register new user
+POST /api/auth/login       # User login
+GET  /api/auth/me          # Get current user
+```
+
+### Tasks
+```http
+GET    /api/tasks          # Get all tasks
+POST   /api/tasks          # Create new task
+PUT    /api/tasks/:id      # Update task
+DELETE /api/tasks/:id      # Delete task
+GET    /api/tasks/stats    # Get task statistics
+```
+
+### Users
+```http
+GET    /api/users          # Get all users (Admin only)
+PUT    /api/users/:id      # Update user (Admin only)
+DELETE /api/users/:id      # Delete user (Admin only)
+```
+
+### File Upload
+```http
+POST   /api/upload         # Upload file attachment
+```
+
+</details>
 
 ## 📁 Project Structure
 
@@ -201,32 +289,66 @@ taskmanager/
 
 ## 🎯 Usage
 
+### 🔐 Authentication
+- **Register**: Create a new account with email and password
+- **Login**: Access your dashboard with existing credentials
+- **Roles**: Automatic role assignment (Admin/User) with different permissions
+- **Security**: JWT tokens with automatic refresh and secure storage
+
+### 📋 Task Management
+- **Create Tasks**: Add new tasks with title, description, priority, and due dates
+- **Assignment**: Assign tasks to specific team members
+- **Status Tracking**: Update task status (To Do, In Progress, Completed)
+- **File Attachments**: Upload and attach relevant documents
+- **Comments**: Add comments and collaborate on tasks
+
+### 📊 Analytics Dashboard
+- **Overview**: Quick stats showing total tasks, completed, and pending
+- **Charts**: Interactive pie charts and bar graphs for visual insights
+- **Progress Tracking**: Team and individual performance metrics
+- **Export**: Generate Excel reports for offline analysis
+- **Filtering**: Filter tasks by status, assignee, or date range
+
+### 👥 Team Collaboration
+- **User Management**: Admin can add/remove team members
+- **Permission Control**: Different access levels for admins and users
+- **Activity Feed**: Real-time updates on task changes
+- **Notifications**: Get notified about task assignments and updates
+
+## 🚀 Deployment
+
 <details>
-<summary><strong>🔐 Authentication</strong></summary>
+<summary><strong>📦 Production Deployment</strong></summary>
 
-- Register a new account or login with existing credentials
-- JWT tokens are used for secure authentication
-- Role-based access control (Admin/User)
+### Using Docker (Recommended)
+```bash
+# Build and run with Docker Compose
+docker-compose up --build
 
-</details>
+# Or build individual containers
+docker build -t taskmanager-backend ./backend
+docker build -t taskmanager-frontend ./frontend
+```
 
-<details>
-<summary><strong>📋 Task Management</strong></summary>
+### Manual Deployment
+```bash
+# Build frontend for production
+cd frontend
+npm run build
 
-- Create new tasks with title, description, and priority
-- Assign tasks to team members
-- Track task progress with status updates
-- Attach files and documents to tasks
+# Start backend in production mode
+cd ../backend
+NODE_ENV=production npm start
+```
 
-</details>
-
-<details>
-<summary><strong>📊 Dashboard</strong></summary>
-
-- View task statistics and analytics
-- Interactive charts showing progress
-- Export reports in Excel format
-- Real-time updates
+### Environment Variables for Production
+```env
+NODE_ENV=production
+MONGODB_URI=your_production_mongodb_uri
+JWT_SECRET=your_super_secure_production_secret
+PORT=5000
+FRONTEND_URL=https://your-domain.com
+```
 
 </details>
 
