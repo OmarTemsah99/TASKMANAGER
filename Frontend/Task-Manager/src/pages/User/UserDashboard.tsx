@@ -60,7 +60,7 @@ const UserDashboard = () => {
   }) => {
     const { taskDistribution = {}, taskPriorityLevels = {} } = data;
 
-    const taskDistributionData = ["Pending", "In Progress", "Completed"].map(
+    const taskDistributionData = ["Pending", "InProgress", "Completed"].map(
       (status) => ({
         status,
         count: taskDistribution[status] || 0,
