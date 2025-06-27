@@ -56,7 +56,7 @@ export const SIDE_MENU_USER_DATA = [
     id: "05",
     label: "Logout",
     icon: LuLogOut,
-    path: "/logout",
+    path: "logout",
   },
 ];
 
