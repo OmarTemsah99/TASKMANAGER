@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskManager - MERN Stack Project</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: #f8fafc;
+        color: #222;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 16px #0001;
+        padding: 40px;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #2563eb;
+      }
+      code,
+      pre {
+        background: #f1f5f9;
+        color: #0f172a;
+        border-radius: 4px;
+        padding: 2px 6px;
+      }
+      ul {
+        margin-bottom: 1.5em;
+      }
+      .section {
+        margin-bottom: 2.5em;
+      }
+      .tech-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .tech-item {
+        background: #e0e7ef;
+        color: #1e293b;
+        border-radius: 6px;
+        padding: 4px 12px;
+        font-size: 1em;
+      }
+      .folder-structure {
+        background: #f1f5f9;
+        padding: 16px;
+        border-radius: 8px;
+        font-family: "Fira Mono", monospace;
+        font-size: 0.98em;
+      }
+      .screenshot {
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        margin: 10px 0;
+        max-width: 100%;
+      }
+      a {
+        color: #2563eb;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>
+        TaskManager
+        <span style="font-size: 0.6em; color: #64748b"
+          >(MERN Stack Project)</span
+        >
+      </h1>
+      <p>
+        <strong>TaskManager</strong> is a full-featured task management web
+        application built with the MERN stack (MongoDB, Express.js, React,
+        Node.js). It supports user authentication, task assignment, progress
+        tracking, reporting, and file uploads, making it ideal for teams and
+        individuals to manage their workflow efficiently.
+      </p>
+
+      <div class="section">
+        <h2>🚀 Features</h2>
+        <ul>
+          <li>User authentication (JWT-based)</li>
+          <li>Role-based access (Admin & User)</li>
+          <li>Create, assign, and manage tasks</li>
+          <li>Task status tracking and progress visualization</li>
+          <li>File attachments for tasks</li>
+          <li>Interactive dashboard with charts and statistics</li>
+          <li>Export reports (Excel support)</li>
+          <li>Modern, responsive UI (React + TailwindCSS)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>🛠️ Technologies Used</h2>
+        <div class="tech-list">
+          <span class="tech-item">MongoDB</span>
+          <span class="tech-item">Express.js</span>
+          <span class="tech-item">React</span>
+          <span class="tech-item">Node.js</span>
+          <span class="tech-item">JWT</span>
+          <span class="tech-item">Mongoose</span>
+          <span class="tech-item">TailwindCSS</span>
+          <span class="tech-item">Axios</span>
+          <span class="tech-item">Recharts</span>
+          <span class="tech-item">Multer</span>
+          <span class="tech-item">ExcelJS</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>📁 Folder Structure</h2>
+        <pre class="folder-structure">
+.
+├── Backend
+│   ├── config/
+│   ├── controllers/
+│   ├── middlewares/
+│   ├── models/
+│   ├── routes/
+│   ├── uploads/
+│   ├── server.js
+│   └── package.json
+├── Frontend
+│   └── Task-Manager
+│       ├── public/
+│       ├── src/
+│       ├── package.json
+│       └── ...
+└── README.html (this file)
+</pre
+        >
+      </div>
+
+      <div class="section">
+        <h2>⚙️ Setup Instructions</h2>
+        <h3>Backend</h3>
+        <ol>
+          <li>
+            Navigate to <code>Backend/</code> and install dependencies:<br /><code
+              >npm install</code
+            >
+          </li>
+          <li>
+            Create a <code>.env</code> file with your MongoDB URI and other
+            configs (see <code>config/db.js</code>).
+          </li>
+          <li>Start the server:<br /><code>npm run dev</code></li>
+        </ol>
+        <h3>Frontend</h3>
+        <ol>
+          <li>
+            Navigate to <code>Frontend/Task-Manager/</code> and install
+            dependencies:<br /><code>npm install</code>
+          </li>
+          <li>Start the development server:<br /><code>npm run dev</code></li>
+          <li>
+            Visit
+            <a href="http://localhost:5173" target="_blank"
+              >http://localhost:5173</a
+            >
+            (or as shown in your terminal)
+          </li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <h2>🖥️ Usage</h2>
+        <ul>
+          <li>Sign up or log in as a user or admin</li>
+          <li>Create and assign tasks</li>
+          <li>Track progress and update statuses</li>
+          <li>Upload attachments to tasks</li>
+          <li>View analytics and reports on the dashboard</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>📸 Screenshots</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 18px">
+          <div style="flex: 1 1 220px; min-width: 220px; max-width: 320px">
+            <img
+              src="screenshots/Screenshot 2025-06-27 221138.png"
+              alt="User Page 1"
+              class="screenshot" />
+            <div style="text-align: center; color: #64748b; font-size: 0.95em">
+              User Page 1
+            </div>
+          </div>
+          <div style="flex: 1 1 220px; min-width: 220px; max-width: 320px">
+            <img
+              src="screenshots/Screenshot 2025-06-27 221211.png"
+              alt="User Page 2"
+              class="screenshot" />
+            <div style="text-align: center; color: #64748b; font-size: 0.95em">
+              User Page 2
+            </div>
+          </div>
+          <div style="flex: 1 1 220px; min-width: 220px; max-width: 320px">
+            <img
+              src="screenshots/Screenshot 2025-06-27 221232.png"
+              alt="User Page 3"
+              class="screenshot" />
+            <div style="text-align: center; color: #64748b; font-size: 0.95em">
+              User Page 3
+            </div>
+          </div>
+          <div style="flex: 1 1 220px; min-width: 220px; max-width: 320px">
+            <img
+              src="screenshots/Screenshot 2025-06-27 221250.png"
+              alt="Auth Page 1"
+              class="screenshot" />
+            <div style="text-align: center; color: #64748b; font-size: 0.95em">
+              Auth Page 1
+            </div>
+          </div>
+          <div style="flex: 1 1 220px; min-width: 220px; max-width: 320px">
+            <img
+              src="screenshots/Screenshot 2025-06-27 221256.png"
+              alt="Auth Page 2"
+              class="screenshot" />
+            <div style="text-align: center; color: #64748b; font-size: 0.95em">
+              Auth Page 2
+            </div>
+          </div>
+          <div style="flex: 1 1 220px; min-width: 220px; max-width: 320px">
+            <img
+              src="screenshots/Screenshot 2025-06-27 221332.png"
+              alt="Admin Page 1"
+              class="screenshot" />
+            <div style="text-align: center; color: #64748b; font-size: 0.95em">
+              Admin Page 1
+            </div>
+          </div>
+          <div style="flex: 1 1 220px; min-width: 220px; max-width: 320px">
+            <img
+              src="screenshots/Screenshot 2025-06-27 221356.png"
+              alt="Admin Page 2"
+              class="screenshot" />
+            <div style="text-align: center; color: #64748b; font-size: 0.95em">
+              Admin Page 2
+            </div>
+          </div>
+          <div style="flex: 1 1 220px; min-width: 220px; max-width: 320px">
+            <img
+              src="screenshots/Screenshot 2025-06-27 221412.png"
+              alt="Admin Page 3"
+              class="screenshot" />
+            <div style="text-align: center; color: #64748b; font-size: 0.95em">
+              Admin Page 3
+            </div>
+          </div>
+          <div style="flex: 1 1 220px; min-width: 220px; max-width: 320px">
+            <img
+              src="screenshots/Screenshot 2025-06-27 221421.png"
+              alt="Admin Page 4"
+              class="screenshot" />
+            <div style="text-align: center; color: #64748b; font-size: 0.95em">
+              Admin Page 4
+            </div>
+          </div>
+          <div style="flex: 1 1 220px; min-width: 220px; max-width: 320px">
+            <img
+              src="screenshots/Screenshot 2025-06-27 221434.png"
+              alt="Admin Page 5"
+              class="screenshot" />
+            <div style="text-align: center; color: #64748b; font-size: 0.95em">
+              Admin Page 5
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 1em; color: #64748b">
+          All screenshots are from the <code>screenshots/</code> folder in the
+          project root.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>📄 License</h2>
+        <p>This project is licensed under the MIT License.</p>
+      </div>
+
+      <div class="section">
+        <h2>🙌 Credits</h2>
+        <p>Developed by <strong>Omar.T.Temsah</strong> and contributors.</p>
+      </div>
+    </div>
+  </body>
+</html>
