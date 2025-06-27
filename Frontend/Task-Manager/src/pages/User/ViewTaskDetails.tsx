@@ -114,7 +114,7 @@ const ViewTaskDetails = () => {
   if (loading) {
     return (
       <DashboardLayout activeMenu="My Tasks">
-        <div className="dashboard-content">
+        <div className="p-6">
           <div className="flex items-center justify-center h-64">
             <div className="spinner w-8 h-8"></div>
           </div>
@@ -126,7 +126,7 @@ const ViewTaskDetails = () => {
   if (!task) {
     return (
       <DashboardLayout activeMenu="My Tasks">
-        <div className="dashboard-content">
+        <div className="p-6">
           <div className="text-center py-12">
             <h2 className="text-xl font-medium text-white mb-2">
               Task Not Found
@@ -142,10 +142,27 @@ const ViewTaskDetails = () => {
 
   return (
     <DashboardLayout activeMenu="My Tasks">
-      <div className="dashboard-content">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="p-6">
+        <div className="space-y-6">
+          {/* Task Progress - Full Width */}
+          {task.progress !== undefined && (
+            <div className="card">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="card-title">Task Progress</h3>
+                <span className="text-white font-medium text-lg">
+                  {task.progress}%
+                </span>
+              </div>
+              <div className="w-full bg-[#1E1145] rounded-full h-3">
+                <div
+                  className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-500 shadow-lg shadow-blue-500/30"
+                  style={{ width: `${task.progress}%` }}></div>
+              </div>
+            </div>
+          )}
+
           {/* Main Task Details */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="space-y-6">
             {/* Task Header */}
             <div className="card">
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
@@ -214,6 +231,18 @@ const ViewTaskDetails = () => {
               </div>
             </div>
 
+            {/* Additional Task Info */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {task.completedTodoCount !== undefined && (
+                <div className="info-card-mobile">
+                  <label className="input-label text-xs">Completed Todos</label>
+                  <p className="text-sm text-gray-200 mt-1">
+                    {task.completedTodoCount}
+                  </p>
+                </div>
+              )}
+            </div>
+
             {/* Todo Checklist */}
             {task.todoChecklist && task.todoChecklist.length > 0 && (
               <div className="card">
@@ -260,40 +289,6 @@ const ViewTaskDetails = () => {
                 </div>
               </div>
             )}
-          </div>
-
-          {/* Sidebar - Task Progress & Info */}
-          <div className="lg:col-span-1 space-y-4">
-            <div className="card">
-              <h3 className="card-title mb-4">Task Progress</h3>
-
-              {task.progress !== undefined && (
-                <div className="mb-4">
-                  <div className="flex justify-between text-sm mb-2">
-                    <span className="text-gray-300">Progress</span>
-                    <span className="text-white font-medium">
-                      {task.progress}%
-                    </span>
-                  </div>
-                  <div className="w-full bg-[#1E1145] rounded-full h-2">
-                    <div
-                      className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${task.progress}%` }}></div>
-                  </div>
-                </div>
-              )}
-
-              <div className="space-y-3 text-sm">
-                {task.completedTodoCount !== undefined && (
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">Completed Todos</span>
-                    <span className="text-white">
-                      {task.completedTodoCount}
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
           </div>
         </div>
       </div>
