@@ -28,20 +28,11 @@
 ## 🎬 Demo Video
 
 <div align="center">
-  <a href="YOUR_GOOGLE_DRIVE_LINK_HERE" target="_blank">
+  <a href="[YOUR_GOOGLE_DRIVE_LINK_HERE](https://drive.google.com/file/d/1-8S8fvpVkKqSOBhYfzAq2_6kTzDzC0Cp/view?usp=sharing)" target="_blank">
     <img src="https://img.shields.io/badge/🎥_Watch_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Demo Video" />
   </a>
   <br />
   <em>Click above to watch a full demonstration of the TaskManager application</em>
-</div>
-
-## 📸 Screenshots
-
-<div align="center">
-  <img src="screenshots/dashboard.png" alt="Dashboard" width="45%" />
-  <img src="screenshots/tasks.png" alt="Task Management" width="45%" />
-  <br />
-  <em>Dashboard Overview & Task Management Interface</em>
 </div>
 
 ---
