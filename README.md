@@ -150,9 +150,9 @@
 
 ### Prerequisites
 <div>
-  <img src="https://img.shields.io/badge/Node.js-v18+-43853D?style=flat&logo=node.js&logoColor=white" alt="Node.js" />
-  <img src="https://img.shields.io/badge/MongoDB-v5+-4EA94B?style=flat&logo=mongodb&logoColor=white" alt="MongoDB" />
-  <img src="https://img.shields.io/badge/npm-v8+-CB3837?style=flat&logo=npm&logoColor=white" alt="npm" />
+  <img src="https://img.shields.io/badge/Node.js-v22+-43853D?style=flat&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/MongoDB-v8+-4EA94B?style=flat&logo=mongodb&logoColor=white" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/npm-v10+-CB3837?style=flat&logo=npm&logoColor=white" alt="npm" />
 </div>
 
 > **Note**: Make sure you have MongoDB running locally or have a MongoDB Atlas connection string ready.
